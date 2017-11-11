@@ -25,6 +25,8 @@
         </activity>
         <activity android:name=".Activities.zobacz_w_sieci">
         </activity>
+        <activity android:name=".Activities.Album_details">
+        </activity>
 
 
     </application>

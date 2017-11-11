@@ -2,13 +2,19 @@ package local.terczynski.albummanager.Activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 
 
 import java.io.File;
@@ -34,27 +40,27 @@ public class albumy extends AppCompatActivity {
         if(mainFolder.list() == null){
             Log.d("fileInit","mainFolder.list() is null");
         }
-//        Log.d("fileInit",mainFolder.list().toString());
+        Log.d("fileInit",mainFolder.list().toString());
 
-//            final ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-//                    this,
-//                    R.layout.album_name,     // nazwa pliku xml do layoutu wiersza
-//                    R.id.album_name_textView,  // id pola tekstowego w wierszu
-//                    mainFolder.list()
-//            );
-//            final ListView listView = (ListView) findViewById(R.id.albumListView);
-//
-//            listView.setAdapter(adapter);
-//            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                    LinearLayout kliknietyLayout = (LinearLayout)view;
-//                    TextView textViewZNazwa = (TextView)kliknietyLayout.getChildAt(1);
-//                    Intent intent = new Intent(albumy.this, Album_details.class);
-//                    intent.putExtra("currentDir", new File(mainFolder,textViewZNazwa.getText() + ""));
-//                    startActivity(intent);
-//                }
-//            });
+            final ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                    this,
+                    R.layout.album_name,     // nazwa pliku xml do layoutu wiersza
+                    R.id.album_name_textView,  // id pola tekstowego w wierszu
+                    mainFolder.list()
+            );
+            final ListView listView = (ListView) findViewById(R.id.albumListView);
+
+            listView.setAdapter(adapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    LinearLayout kliknietyLayout = (LinearLayout)view;
+                    TextView textViewZNazwa = (TextView)kliknietyLayout.getChildAt(1);
+                    Intent intent = new Intent(albumy.this, Album_details.class);
+                    intent.putExtra("currentDir", new File(mainFolder,textViewZNazwa.getText() + ""));
+                    startActivity(intent);
+                }
+            });
 
 
 
@@ -66,7 +72,7 @@ public class albumy extends AppCompatActivity {
 
         mainFolderName = getString(R.string.mainFolderName);
         SYS_pictures =  Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        mainFolder = new File(SYS_pictures,mainFolderName);
+        mainFolder = new File(SYS_pictures, mainFolderName);
 
         refreshFileList();
 
