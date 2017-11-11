@@ -28,7 +28,7 @@
                 android:id="@+id/note_row_label_id"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.8"
+                android:layout_weight="0.75"
                 android:text="ID:"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -36,8 +36,30 @@
                 android:id="@+id/note_row_id_value"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.2"
+                android:layout_weight="0.25"
                 android:text="id_value" />
+        </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.75"
+                android:text="ImagePath:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+            <TextView
+                android:id="@+id/note_row_imagePath_value"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.25"
+                android:text="imagePath_value" />
         </LinearLayout>
 
         <LinearLayout
@@ -50,7 +72,7 @@
                 android:id="@+id/textView13"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.8"
+                android:layout_weight="0.75"
                 android:text="Title:"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -58,7 +80,7 @@
                 android:id="@+id/note_row_title_value"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.2"
+                android:layout_weight="0.25"
                 android:text="title_value" />
         </LinearLayout>
 
@@ -72,7 +94,7 @@
                 android:id="@+id/textView14"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.8"
+                android:layout_weight="0.75"
                 android:text="Text:"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -80,8 +102,9 @@
                 android:id="@+id/note_row_text_value"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.2"
+                android:layout_weight="0.25"
                 android:text="text_value" />
+
         </LinearLayout>
     </LinearLayout>
 
