@@ -28,16 +28,16 @@ public class NotatkiActivity extends AppCompatActivity {
 
 
 
-        ArrayList<Note> mockNotes = new ArrayList<Note>();
-        mockNotes.add(new Note("title1", "text1", "#00ff00", 1));
-        mockNotes.add(new Note("title2", "text2 taki inny", "#ff0000", 2));
+//        ArrayList<Note> mockNotes = new ArrayList<Note>();
+//        mockNotes.add(new Note("title1", "text1", "#00ff00", 1));
+//        mockNotes.add(new Note("title2", "text2 taki inny", "#ff0000", 2));
 
-        db.getAllNotes();
+        ArrayList<Note> notes = db.getAllNotes();
 
         MyArrayAdapter adapter = new MyArrayAdapter(
             NotatkiActivity.this,
             R.layout.note_row_layout,
-            mockNotes
+            notes
         );
         ListView notatki_listView = findViewById(R.id.notatki_listView);
         notatki_listView.setAdapter(adapter);

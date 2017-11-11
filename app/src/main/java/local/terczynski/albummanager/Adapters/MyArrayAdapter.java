@@ -41,6 +41,7 @@ public class MyArrayAdapter extends ArrayAdapter {
         TextView textView_titleValue = (TextView) convertView.findViewById(R.id.note_row_title_value);
         TextView textView_textValue = (TextView) convertView.findViewById(R.id.note_row_text_value);
         TextView textView_idValue = (TextView) convertView.findViewById(R.id.note_row_id_value);
+        TextView textView_imagePathValue = convertView.findViewById(R.id.note_row_imagePath_value);
 
         Note currentNote = objects.get(position);
 
@@ -56,10 +57,9 @@ public class MyArrayAdapter extends ArrayAdapter {
         textView_titleValue.setText(currentNote.title);
         textView_textValue.setText(currentNote.text);
         textView_idValue.setText(currentNote.id + "");
+        textView_imagePathValue.setText(currentNote.imagePath);
 
-        textView_titleValue.setBackgroundColor(Color.parseColor(currentNote.color));
-        textView_textValue.setBackgroundColor(Color.parseColor(currentNote.color));
-        textView_idValue.setBackgroundColor(Color.parseColor(currentNote.color));
+        textView_titleValue.setTextColor(Color.parseColor(currentNote.color));
 
 
         //gdybyśmy chcieli klikać Imageview wewnątrz wiersza:

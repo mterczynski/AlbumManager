@@ -16,17 +16,20 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     private String dbName;
     private String noteTableName = "notes";
+    private String mainFolderName;
 
     // constructors:
 
     public DatabaseManager(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
         dbName = context.getResources().getString(R.string.dbName);
+        mainFolderName = context.getResources().getString(R.string.mainFolderName);
     }
 
     public DatabaseManager(Context context, String name, SQLiteDatabase.CursorFactory factory, int version, DatabaseErrorHandler errorHandler) {
         super(context, name, factory, version, errorHandler);
         dbName = context.getResources().getString(R.string.dbName);
+        mainFolderName = context.getResources().getString(R.string.mainFolderName);
     }
 
     // overrided methods:
@@ -43,29 +46,10 @@ public class DatabaseManager extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    // methods:
-    public ArrayList<Note> getAll(){
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        ArrayList<Note> notes = new ArrayList<Note>();
-        Cursor result = db.rawQuery("SELECT * FROM " + noteTableName , null);
-        while(result.moveToNext()){
-//            notes.add( new Note(
-//                    "", "" , ""
-//                //result.getString(result.getColumnIndex("title")),
-//                //result.getString(result.getColumnIndex("text")),
-//               // result.getString(result.getColumnIndex("filePath"))
-//            ));
-        }
-        return notes;
-    }
-
     public boolean insert(String title, String text, String color, String imagePath){
 
-        Log.d("db","dbName: " + dbName);
-
         SQLiteDatabase db = this.getWritableDatabase();
-
+        
         ContentValues contentValues = new ContentValues();
         contentValues.put("title", title);
         contentValues.put("text", text);
@@ -82,12 +66,16 @@ public class DatabaseManager extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<Note> notes = new ArrayList<>();
         Cursor result = db.rawQuery("SELECT * FROM " + noteTableName, null);
+
         while(result.moveToNext()){
+            String shortImagePath = "(...)" + result.getString(result.getColumnIndex("image_path")).split(mainFolderName)[1];
+
             notes.add(new Note( // String Title, String Text, String Color, int id
                 result.getString(result.getColumnIndex("title")),
                 result.getString(result.getColumnIndex("text")),
                 result.getString(result.getColumnIndex("color")),
-                result.getInt(result.getColumnIndex("_id"))
+                result.getInt(result.getColumnIndex("_id")),
+                shortImagePath
             ));
         }
         return notes;
