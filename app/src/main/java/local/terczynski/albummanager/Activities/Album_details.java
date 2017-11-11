@@ -139,12 +139,12 @@ public class Album_details extends AppCompatActivity {
                 imageView1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                    Intent newIntent = new Intent(Album_details.this, PictureDetailsActivity.class);
-//                    newIntent.putExtra("pictureFullPath",zdjeciaWFolderze[finalI].getAbsolutePath());
-//
-//                    newIntent.putExtra("currentDir", (File)getIntent().getExtras().get("currentDir"));
-//
-//                    startActivity(newIntent);
+                    Intent newIntent = new Intent(Album_details.this, PictureDetailsActivity.class);
+                    newIntent.putExtra("pictureFullPath",zdjeciaWFolderze[finalI].getAbsolutePath());
+
+                    newIntent.putExtra("currentDir", (File)getIntent().getExtras().get("currentDir"));
+
+                    startActivity(newIntent);
                     }
                 });
                 Log.d("debugg","onlongclickListener set");
@@ -154,12 +154,12 @@ public class Album_details extends AppCompatActivity {
                 imageView2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                    Intent newIntent = new Intent(Album_details.this, PictureDetailsActivity.class);
-//                    newIntent.putExtra("pictureFullPath",zdjeciaWFolderze[finalI+1].getAbsolutePath());
-//
-//                    newIntent.putExtra("currentDir", (File)getIntent().getExtras().get("currentDir"));
-//
-//                    startActivity(newIntent);
+                    Intent newIntent = new Intent(Album_details.this, PictureDetailsActivity.class);
+                    newIntent.putExtra("pictureFullPath",zdjeciaWFolderze[finalI+1].getAbsolutePath());
+
+                    newIntent.putExtra("currentDir", (File)getIntent().getExtras().get("currentDir"));
+
+                    startActivity(newIntent);
                     }
                 });
 
@@ -168,12 +168,12 @@ public class Album_details extends AppCompatActivity {
                 imageView3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                    Intent newIntent = new Intent(Album_details.this, PictureDetailsActivity.class);
-//                    newIntent.putExtra("pictureFullPath",zdjeciaWFolderze[finalI+2].getAbsolutePath());
-//
-//                    newIntent.putExtra("currentDir", (File)getIntent().getExtras().get("currentDir"));
-//
-//                    startActivity(newIntent);
+                    Intent newIntent = new Intent(Album_details.this, PictureDetailsActivity.class);
+                    newIntent.putExtra("pictureFullPath",zdjeciaWFolderze[finalI+2].getAbsolutePath());
+
+                    newIntent.putExtra("currentDir", (File)getIntent().getExtras().get("currentDir"));
+
+                    startActivity(newIntent);
                     }
                 });
             }
@@ -181,10 +181,10 @@ public class Album_details extends AppCompatActivity {
                 imageView4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                    Intent newIntent = new Intent(Album_details.this, PictureDetailsActivity.class);
-//                    newIntent.putExtra("pictureFullPath",zdjeciaWFolderze[finalI+3].getAbsolutePath());
-//                    newIntent.putExtra("currentDir", (File)getIntent().getExtras().get("currentDir"));
-//                    startActivity(newIntent);
+                    Intent newIntent = new Intent(Album_details.this, PictureDetailsActivity.class);
+                    newIntent.putExtra("pictureFullPath",zdjeciaWFolderze[finalI+3].getAbsolutePath());
+                    newIntent.putExtra("currentDir", (File)getIntent().getExtras().get("currentDir"));
+                    startActivity(newIntent);
                     }
                 });
             }
@@ -315,12 +315,12 @@ public class Album_details extends AppCompatActivity {
                 imageView1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                    Intent newIntent = new Intent(Album_details.this, PictureDetailsActivity.class);
-//                    newIntent.putExtra("pictureFullPath",zdjeciaWFolderze[finalI].getAbsolutePath());
-//
-//                    newIntent.putExtra("currentDir", (File)getIntent().getExtras().get("currentDir"));
-//
-//                    startActivity(newIntent);
+                    Intent newIntent = new Intent(Album_details.this, PictureDetailsActivity.class);
+                    newIntent.putExtra("pictureFullPath",zdjeciaWFolderze[finalI].getAbsolutePath());
+
+                    newIntent.putExtra("currentDir", (File)getIntent().getExtras().get("currentDir"));
+
+                    startActivity(newIntent);
                     }
                 });
             }
@@ -328,12 +328,12 @@ public class Album_details extends AppCompatActivity {
                 imageView2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                    Intent newIntent = new Intent(Album_details.this, PictureDetailsActivity.class);
-//                    newIntent.putExtra("pictureFullPath",zdjeciaWFolderze[finalI+1].getAbsolutePath());
-//
-//                    newIntent.putExtra("currentDir", (File)getIntent().getExtras().get("currentDir"));
-//
-//                    startActivity(newIntent);
+                    Intent newIntent = new Intent(Album_details.this, PictureDetailsActivity.class);
+                    newIntent.putExtra("pictureFullPath",zdjeciaWFolderze[finalI+1].getAbsolutePath());
+
+                    newIntent.putExtra("currentDir", (File)getIntent().getExtras().get("currentDir"));
+
+                    startActivity(newIntent);
                     }
                 });
             }
@@ -341,12 +341,12 @@ public class Album_details extends AppCompatActivity {
                 imageView3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                    Intent newIntent = new Intent(Album_details.this, PictureDetailsActivity.class);
-//                    newIntent.putExtra("pictureFullPath",zdjeciaWFolderze[finalI+2].getAbsolutePath());
-//
-//                    newIntent.putExtra("currentDir", (File)getIntent().getExtras().get("currentDir"));
-//
-//                    startActivity(newIntent);
+                    Intent newIntent = new Intent(Album_details.this, PictureDetailsActivity.class);
+                    newIntent.putExtra("pictureFullPath",zdjeciaWFolderze[finalI+2].getAbsolutePath());
+
+                    newIntent.putExtra("currentDir", (File)getIntent().getExtras().get("currentDir"));
+
+                    startActivity(newIntent);
                     }
                 });
             }
@@ -354,12 +354,12 @@ public class Album_details extends AppCompatActivity {
                 imageView4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                    Intent newIntent = new Intent(Album_details.this, PictureDetailsActivity.class);
-//                    newIntent.putExtra("pictureFullPath",zdjeciaWFolderze[finalI+3].getAbsolutePath());
-//
-//                    newIntent.putExtra("currentDir", (File)getIntent().getExtras().get("currentDir"));
-//
-//                    startActivity(newIntent);
+                    Intent newIntent = new Intent(Album_details.this, PictureDetailsActivity.class);
+                    newIntent.putExtra("pictureFullPath",zdjeciaWFolderze[finalI+3].getAbsolutePath());
+
+                    newIntent.putExtra("currentDir", (File)getIntent().getExtras().get("currentDir"));
+
+                    startActivity(newIntent);
                     }
                 });
             }
