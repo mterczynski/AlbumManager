@@ -1,6 +1,8 @@
 package local.terczynski.albummanager.Adapters;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,14 +12,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import local.terczynski.albummanager.Helpers.Note;
 import local.terczynski.albummanager.R;
 
 public class MyArrayAdapter extends ArrayAdapter {
-    private ArrayList<Object> objects;
+    private ArrayList<Note> objects;
     private Context context;
     private int resource;
 
-    public MyArrayAdapter(Context context, int resource, ArrayList<Object> objects) {
+    public MyArrayAdapter(Context context, int resource, ArrayList<Note> objects) {
         super(context, resource, objects);
 
         this.context = context;
@@ -39,9 +42,25 @@ public class MyArrayAdapter extends ArrayAdapter {
         TextView textView_textValue = (TextView) convertView.findViewById(R.id.note_row_text_value);
         TextView textView_idValue = (TextView) convertView.findViewById(R.id.note_row_id_value);
 
-        textView_titleValue.setText("title pobrany z listy, getterem");
-        textView_textValue.setText("tekst pobrany z listy, getterem");
-        textView_idValue.setText("id pobrany z listy, getterem");
+        Note currentNote = objects.get(position);
+
+        Log.d("MyArrayAdapter", "currentNote: " + currentNote.toString());
+        Log.d("MyArrayAdapter", "currentNote title: " + currentNote.title);
+        Log.d("MyArrayAdapter", "currentNote text: " + currentNote.text);
+        Log.d("MyArrayAdapter", "currentNote id: " + currentNote.id);
+
+        Log.d("MyArrayAdapter", "currentNote colorString: " + currentNote.color);
+
+        Color.parseColor("#ff00ff");
+
+        textView_titleValue.setText(currentNote.title);
+        textView_textValue.setText(currentNote.text);
+        textView_idValue.setText(currentNote.id + "");
+
+        textView_titleValue.setBackgroundColor(Color.parseColor(currentNote.color));
+        textView_textValue.setBackgroundColor(Color.parseColor(currentNote.color));
+        textView_idValue.setBackgroundColor(Color.parseColor(currentNote.color));
+
 
         //gdybyśmy chcieli klikać Imageview wewnątrz wiersza:
 //        ImageView iv1 = (ImageView) convertView.findViewById(R.id.iv2);
