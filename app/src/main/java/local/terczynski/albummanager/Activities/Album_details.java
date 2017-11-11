@@ -210,7 +210,7 @@ public class Album_details extends AppCompatActivity {
             Album_details.this, // activity z galerią zdjęć
             getString(R.string.dbName), // database name
             null,
-            1 //wersja bazy, po zmianie schematu bazy należy ją zwiększyć
+            3//wersja bazy, po zmianie schematu bazy należy ją zwiększyć
         );
 
         Log.d("albumDetails","onCreate");

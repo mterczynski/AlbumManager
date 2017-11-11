@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout layout_albumy = (LinearLayout)findViewById(R.id.layout_albumy);
         LinearLayout layout_kolaz = (LinearLayout)findViewById(R.id.layout_kolaz);
         LinearLayout layout_zobacz_w_sieci = (LinearLayout)findViewById(R.id.layout_zobacz_w_sieci);
+        LinearLayout layout_notatki = findViewById(R.id.layout_notatki);
 
         // utworzenie folderów przy starcie aplikacji:
         createAppFolderIfDoesntExist();
@@ -84,6 +85,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, zobacz_w_sieci.class));
+            }
+        });
+        layout_notatki.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, NotatkiActivity.class));
             }
         });
     }
