@@ -17,23 +17,19 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activities.kolaz">
-        </activity>
-        <activity android:name=".Activities.albumy">
-        </activity>
-        <activity android:name=".Activities.NotatkiActivity">
-        </activity>
-        <activity android:name=".Activities.zobacz_w_sieci">
-        </activity>
-        <activity android:name=".Activities.Album_details">
-        </activity>
-        <activity android:name=".Activities.PictureDetailsActivity">
-        </activity>
-
+        <activity android:name=".Activities.kolaz"></activity>
+        <activity android:name=".Activities.albumy"></activity>
+        <activity android:name=".Activities.NotatkiActivity"></activity>
+        <activity android:name=".Activities.zobacz_w_sieci"></activity>
+        <activity android:name=".Activities.Album_details"></activity>
+        <activity android:name=".Activities.PictureDetailsActivity"></activity>
+        <activity android:name=".Activities.zdjecie"></activity>
 
     </application>
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
 </manifest>

@@ -18,9 +18,6 @@ public class MainActivity extends AppCompatActivity {
         String mainFolderName = getString(R.string.mainFolderName);
         File SYS_pictures = Environment.getExternalStoragePublicDirectory( Environment.DIRECTORY_PICTURES );
         File mainDir = new File(SYS_pictures, mainFolderName);
-//        mainDir.setReadable(true, false);
-//        mainDir.setExecutable(true, false);
-//        mainDir.setWritable(true, false);
 
         Log.d("fileInit", "Foldery w folderze PICTURES: ");
 
@@ -40,11 +37,6 @@ public class MainActivity extends AppCompatActivity {
                 new File(mainDir, "ludzie"),
                 new File(mainDir, "rzeczy")
         };
-//        for(File file: subdirs){
-//            file.setReadable(true, false);
-//            file.setExecutable(true, false);
-//            file.setWritable(true, false);
-//        }
 
         if(!mainDir.mkdir()){
             Log.d("fileInit", "Nie udało się utworzyć głównego folderu, możliwe że folder już istnieje.");
@@ -73,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         layout_zdjecie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startActivity(new Intent(MainActivity.this, zdjecie.class));
+                startActivity(new Intent(MainActivity.this, zdjecie.class));
             }
         });
         layout_albumy.setOnClickListener(new View.OnClickListener() {
