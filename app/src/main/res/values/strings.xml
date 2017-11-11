@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">AlbumManager</string>
     <string name="mainFolderName">AlbumManager_mter</string>
+    <string name="dbName">AlbumManager_mter.db</string>
 </resources>

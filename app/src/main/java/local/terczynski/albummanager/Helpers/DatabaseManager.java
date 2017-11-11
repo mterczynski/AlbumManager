@@ -9,10 +9,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
-/**
- * Created by 4ia2 on 2017-10-10.
- */
+import local.terczynski.albummanager.R;
+
 public class DatabaseManager extends SQLiteOpenHelper {
+
+    private String dbName;
 
     // constructors:
 
@@ -22,6 +23,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public DatabaseManager(Context context, String name, SQLiteDatabase.CursorFactory factory, int version, DatabaseErrorHandler errorHandler) {
         super(context, name, factory, version, errorHandler);
+        dbName = context.getResources().getString(R.string.dbName);
     }
 
     // overrided methods:
@@ -65,7 +67,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         contentValues.put("color", color);
         contentValues.put("image_path", imagePath);
 
-        db.insertOrThrow("terczynski4ia2.db" /*nazwa bazy danych*/, null, contentValues);
+        db.insertOrThrow( dbName/*nazwa bazy danych*/, null, contentValues);
         db.close();
         return true;
     }

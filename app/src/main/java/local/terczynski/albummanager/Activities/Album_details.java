@@ -208,7 +208,7 @@ public class Album_details extends AppCompatActivity {
 
         db = new DatabaseManager(
             Album_details.this, // activity z galerią zdjęć
-            "terczynski4ia2.db", // nazwa bazy
+            getString(R.string.dbName), // database name
             null,
             1 //wersja bazy, po zmianie schematu bazy należy ją zwiększyć
         );
@@ -222,32 +222,28 @@ public class Album_details extends AppCompatActivity {
         LinearLayout images = (LinearLayout)findViewById(R.id.LinearLayoutInScrollView);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
 
-
         ImageView deleteFolderButton = (ImageView)findViewById(R.id.deleteAlbumButton);
-        //ScrollView scrollView = (ScrollView)findViewById(R.id.customImageScrollView);
+
         deleteFolderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+            AlertDialog.Builder alert = new AlertDialog.Builder(Album_details.this);
+            alert.setTitle("Usuwanie");
+            alert.setMessage("Czy usunąć folder \"" + currentDir.getName() + "\"?");
+            alert.setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    currentDir.delete();
+                    Intent intent = new Intent(Album_details.this, albumy.class);
+                    startActivity(intent);
+                }
 
-                // alert code:
-                AlertDialog.Builder alert = new AlertDialog.Builder(Album_details.this);
-                alert.setTitle("Usuwanie");
-                alert.setMessage("Czy usunąć folder \"" + currentDir.getName() + "\"?");
-                alert.setPositiveButton("Tak", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        currentDir.delete();
-                        Intent intent = new Intent(Album_details.this, albumy.class);
-                        startActivity(intent);
-                    }
+            });
+            alert.setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
 
-                });
-                alert.setNegativeButton("Nie", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alert.show();
-                // end of alert code
+                }
+            });
+            alert.show();
             }
         });
 
