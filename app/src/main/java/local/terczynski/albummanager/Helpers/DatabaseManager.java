@@ -76,4 +76,20 @@ public class DatabaseManager extends SQLiteOpenHelper {
         db.close();
         return true;
     }
+
+    public ArrayList<Note> getAllNotes(){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Note> notes = new ArrayList<>();
+        Cursor result = db.rawQuery("SELECT * FROM " + noteTableName, null);
+        while(result.moveToNext()){
+            notes.add(new Note( // String Title, String Text, String Color, int id
+                result.getString(result.getColumnIndex("title")),
+                result.getString(result.getColumnIndex("text")),
+                result.getString(result.getColumnIndex("color")),
+                result.getInt(result.getColumnIndex("_id"))
+            ));
+        }
+        return notes;
+    }
 }

@@ -9,14 +9,19 @@ public class Note {
     public int id;
     public String color;
 
-    public Note(String ImagePath, String Title, String Text, String Color, int id) {
+    public Note(String Title, String Text, String Color, int id) {
+        this.title = Title;
+        this.text = Text;
+        this.color = Color;
+        this.id = id;
+    }
+    public Note(String Title, String Text, String Color, int id, String ImagePath) {
         this.imagePath = ImagePath;
         this.title = Title;
         this.text = Text;
         this.color = Color;
         this.id = id;
     }
-
     // getters and setters:
 
 //    public String getText() {
