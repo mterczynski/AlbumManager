@@ -33,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         File[] subdirs = {
-                new File(mainDir, "miejsca"),
-                new File(mainDir, "ludzie"),
-                new File(mainDir, "rzeczy")
+            new File(mainDir, "miejsca"),
+            new File(mainDir, "ludzie"),
+            new File(mainDir, "rzeczy")
         };
 
         if(!mainDir.mkdir()){

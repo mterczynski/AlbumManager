@@ -27,43 +27,28 @@ public class albumy extends AppCompatActivity {
     private File SYS_pictures;
     private File mainFolder;
 
-
     protected void refreshFileList() {
-        if(SYS_pictures == null){
-            Log.d("fileInit", "SYS_pictures is null");
-        }
-        if(mainFolder == null){
-            Log.d("fileInit", "mainFolder is null");
-        }
 
-        Log.d("fileInit",mainFolder.getAbsolutePath());
-        if(mainFolder.list() == null){
-            Log.d("fileInit","mainFolder.list() is null");
-        }
-        Log.d("fileInit",mainFolder.list().toString());
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this,
+                R.layout.album_name,     // nazwa pliku xml do layoutu wiersza
+                R.id.album_name_textView,  // id pola tekstowego w wierszu
+                mainFolder.list()
+        );
+        final ListView listView = (ListView) findViewById(R.id.albumListView);
 
-            final ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                    this,
-                    R.layout.album_name,     // nazwa pliku xml do layoutu wiersza
-                    R.id.album_name_textView,  // id pola tekstowego w wierszu
-                    mainFolder.list()
-            );
-            final ListView listView = (ListView) findViewById(R.id.albumListView);
+        listView.setAdapter(adapter);
 
-            listView.setAdapter(adapter);
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    LinearLayout kliknietyLayout = (LinearLayout)view;
-                    TextView textViewZNazwa = (TextView)kliknietyLayout.getChildAt(1);
-                    Intent intent = new Intent(albumy.this, Album_details.class);
-                    intent.putExtra("currentDir", new File(mainFolder,textViewZNazwa.getText() + ""));
-                    startActivity(intent);
-                }
-            });
-
-
-
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                LinearLayout kliknietyLayout = (LinearLayout)view;
+                TextView textViewZNazwa = (TextView)kliknietyLayout.getChildAt(1);
+                Intent intent = new Intent(albumy.this, Album_details.class);
+                intent.putExtra("currentDir", new File(mainFolder,textViewZNazwa.getText() + ""));
+                startActivity(intent);
+            }
+        });
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +60,6 @@ public class albumy extends AppCompatActivity {
         mainFolder = new File(SYS_pictures, mainFolderName);
 
         refreshFileList();
-
-
 
         ImageView plus_icon = (ImageView)findViewById(R.id.plus_icon);
 
@@ -92,23 +75,21 @@ public class albumy extends AppCompatActivity {
                 alert.setNeutralButton("Dodaj", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String folderName = input.getText().toString();
-                        File newFolder = new File(mainFolder, folderName);
-                        if(!newFolder.mkdirs()){
-                            AlertDialog.Builder fileExistAlert = new AlertDialog.Builder(albumy.this);
-                            fileExistAlert.setTitle("Uwaga");
-                            fileExistAlert.setMessage("Nie można utworzyć folderu. Być może folder z taką nazwą już istnieje");
-                            fileExistAlert.show();
-                        } else {
-                            refreshFileList();
-                        }
+                    String folderName = input.getText().toString();
+                    File newFolder = new File(mainFolder, folderName);
+                    if(!newFolder.mkdirs()){
+                        AlertDialog.Builder fileExistAlert = new AlertDialog.Builder(albumy.this);
+                        fileExistAlert.setTitle("Uwaga");
+                        fileExistAlert.setMessage("Nie można utworzyć folderu. Być może folder z taką nazwą już istnieje");
+                        fileExistAlert.show();
+                    } else {
+                        refreshFileList();
+                    }
                     }
                 });
                 alert.setNegativeButton("Anuluj", new DialogInterface.OnClickListener(){
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
+                    public void onClick(DialogInterface dialog, int which) {}
                 });
 
                 alert.show();

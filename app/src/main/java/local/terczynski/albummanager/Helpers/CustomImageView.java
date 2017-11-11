@@ -158,9 +158,6 @@ public class CustomImageView extends android.support.v7.widget.AppCompatImageVie
             }
         });
 
-        System.out.println("HALOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-        Log.d("longdebug", "long click detected");
-
         return false;
     }
 }

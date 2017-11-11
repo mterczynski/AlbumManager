@@ -20,17 +20,11 @@ public class NotatkiActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notatki);
 
         DatabaseManager db = new DatabaseManager(
-            NotatkiActivity.this, // activity z galerią zdjęć
+            NotatkiActivity.this, // TODO check activity z galerią zdjęć
             getString(R.string.dbName), // database name
             null,
-            3//wersja bazy, po zmianie schematu bazy należy ją zwiększyć
+            3 // database version
         );
-
-
-
-//        ArrayList<Note> mockNotes = new ArrayList<Note>();
-//        mockNotes.add(new Note("title1", "text1", "#00ff00", 1));
-//        mockNotes.add(new Note("title2", "text2 taki inny", "#ff0000", 2));
 
         ArrayList<Note> notes = db.getAllNotes();
 

@@ -31,12 +31,9 @@ public class MyArrayAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        //inflater - klasa konwertująca xml na kod javy
+        // inflater - klasa konwertująca xml na kod javy
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.note_row_layout, null);
-
-        //convertView = inflater.inflate(_resource, null);
-        //szukamy każdego TextView w layoucie
 
         TextView textView_titleValue = (TextView) convertView.findViewById(R.id.note_row_title_value);
         TextView textView_textValue = (TextView) convertView.findViewById(R.id.note_row_text_value);
@@ -61,8 +58,8 @@ public class MyArrayAdapter extends ArrayAdapter {
 
         textView_titleValue.setTextColor(Color.parseColor(currentNote.color));
 
-
         //gdybyśmy chcieli klikać Imageview wewnątrz wiersza:
+
 //        ImageView iv1 = (ImageView) convertView.findViewById(R.id.iv2);
 //        iv1.setOnClickListener(new View.OnClickListener() {
 //            @Override

@@ -29,7 +29,6 @@ public class Album_details extends AppCompatActivity {
         Bitmap myBitmap;
         BitmapFactory.Options options = new BitmapFactory.Options();    //opcje przekształcania bitmapy
         options.inSampleSize = 4; // zmniejszenie jakości bitmapy 4x
-        //
         myBitmap = BitmapFactory.decodeFile(filePath, options);
         return myBitmap;
     }
@@ -45,14 +44,11 @@ public class Album_details extends AppCompatActivity {
         LinearLayout images = (LinearLayout)findViewById(R.id.LinearLayoutInScrollView);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
 
-
         ImageView deleteFolderButton = (ImageView)findViewById(R.id.deleteAlbumButton);
-        //ScrollView scrollView = (ScrollView)findViewById(R.id.customImageScrollView);
         deleteFolderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                // alert code:
                 AlertDialog.Builder alert = new AlertDialog.Builder(Album_details.this);
                 alert.setTitle("Usuwanie");
                 alert.setMessage("Czy usunąć folder \"" + currentDir.getName() + "\"?");
@@ -70,10 +66,8 @@ public class Album_details extends AppCompatActivity {
                     }
                 });
                 alert.show();
-                // end of alert code
             }
         });
-
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -100,7 +94,6 @@ public class Album_details extends AppCompatActivity {
             imageView1.setImageBitmap(bmp1);
 
             if(i +1 < iloscZdjec){
-
                 imageView2 = new CustomImageView(Album_details.this, R.drawable.net_icon, db, zdjeciaWFolderze[i+1].getAbsolutePath());
                 imageView2.getLayoutParams().width = width2;
                 Bitmap bmp = betterImageDecode(zdjeciaWFolderze[i+1].getAbsolutePath());
@@ -147,8 +140,6 @@ public class Album_details extends AppCompatActivity {
                     startActivity(newIntent);
                     }
                 });
-                Log.d("debugg","onlongclickListener set");
-
             }
             if(imageView2 != null){
                 imageView2.setOnClickListener(new View.OnClickListener() {
@@ -189,8 +180,6 @@ public class Album_details extends AppCompatActivity {
                 });
             }
 
-
-            Log.d("test","test layoutu " + images.getHeight()+"");
             images.addView(linearny);
             images.addView(linearny2);
         }
@@ -200,7 +189,6 @@ public class Album_details extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        Log.d("albumDetails","onRestart");
     }
 
     @Override
@@ -213,7 +201,6 @@ public class Album_details extends AppCompatActivity {
             3//wersja bazy, po zmianie schematu bazy należy ją zwiększyć
         );
 
-        Log.d("albumDetails","onCreate");
         Bundle bundle = getIntent().getExtras();
         final File currentDir = (File)bundle.get("currentDir");
         super.onResume();
@@ -247,7 +234,6 @@ public class Album_details extends AppCompatActivity {
             }
         });
 
-
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -359,9 +345,6 @@ public class Album_details extends AppCompatActivity {
                     }
                 });
             }
-
-
-            Log.d("test","test layoutu " + images.getHeight()+"");
             images.addView(linearny);
             images.addView(linearny2);
         }

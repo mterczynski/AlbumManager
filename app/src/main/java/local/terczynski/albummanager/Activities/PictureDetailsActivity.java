@@ -22,7 +22,6 @@ public class PictureDetailsActivity extends AppCompatActivity {
         Bitmap myBitmap;
         BitmapFactory.Options options = new BitmapFactory.Options();    //opcje przekształcania bitmapy
         options.inSampleSize = 4; // zmniejszenie jakości bitmapy 4x
-        //
         myBitmap = BitmapFactory.decodeFile(filePath, options);
         return myBitmap;
     }

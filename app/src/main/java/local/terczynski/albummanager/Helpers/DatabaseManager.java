@@ -34,7 +34,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     // overrided methods:
 
-
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + noteTableName + " (_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'title' TEXT, 'text' TEXT, 'color' TEXT, 'image_path' TEXT)");
@@ -49,7 +48,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
     public boolean insert(String title, String text, String color, String imagePath){
 
         SQLiteDatabase db = this.getWritableDatabase();
-        
+
         ContentValues contentValues = new ContentValues();
         contentValues.put("title", title);
         contentValues.put("text", text);
