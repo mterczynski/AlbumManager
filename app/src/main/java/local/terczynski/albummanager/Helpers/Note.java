@@ -22,4 +22,13 @@ public class Note {
         this.color = Color;
         this.id = id;
     }
+
+    public String toString(){
+        return
+            "{id: " + id +
+            ", text: " + text +
+            ", color: " + color +
+            ", imagePath: " + imagePath +
+            "}";
+    }
 }

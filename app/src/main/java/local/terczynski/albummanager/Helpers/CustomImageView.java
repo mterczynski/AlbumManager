@@ -65,12 +65,12 @@ public class CustomImageView extends android.support.v7.widget.AppCompatImageVie
 
         alert.setPositiveButton("Add", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-            String title = noteTitleET.getText().toString();
-            String text = noteTextET.getText().toString();
+                String title = noteTitleET.getText().toString();
+                String text = noteTextET.getText().toString();
 
-            Log.d("imagePath","imagePath is: " + imagePath);
+                Log.d("imagePath","imagePath is: " + imagePath);
 
-            db.insert(title, text, selectedColor, imagePath);
+                db.insert(title, text, selectedColor, imagePath);
             }
         });
         alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

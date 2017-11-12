@@ -34,6 +34,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     // overrided methods:
 
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + noteTableName + " (_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'title' TEXT, 'text' TEXT, 'color' TEXT, 'image_path' TEXT)");
@@ -78,5 +79,15 @@ public class DatabaseManager extends SQLiteOpenHelper {
             ));
         }
         return notes;
+    }
+
+    public int deleteNoteById(String noteId){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        return db.delete(
+            noteTableName,
+            "_id = ? ",
+            new String[]{noteId}
+        );
     }
 }
