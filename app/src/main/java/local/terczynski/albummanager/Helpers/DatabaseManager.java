@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import local.terczynski.albummanager.R;
 
@@ -89,5 +91,50 @@ public class DatabaseManager extends SQLiteOpenHelper {
             "_id = ? ",
             new String[]{noteId}
         );
+    }
+
+    public void updateNote(String noteId, String newTitle, String newColor, String newText){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("title", newTitle);
+        contentValues.put("color", newColor);
+        contentValues.put("text", newText);
+
+        db.update(noteTableName, contentValues, "_id = ? ", new String[]{noteId});
+        db.close();
+    }
+
+    public ArrayList<Note> getNotesSortedByTitle(){
+        ArrayList<Note> notes =  getAllNotes();
+        Collections.sort(notes, new Comparator<Note>() {
+            @Override
+            public int compare(Note note1, Note note2) {
+                return note1.title.compareTo(note2.title);
+            }
+        });
+        return notes;
+    }
+
+    public ArrayList<Note> getNotesSortedByColor(){
+        ArrayList<Note> notes =  getAllNotes();
+        Collections.sort(notes, new Comparator<Note>() {
+            @Override
+            public int compare(Note note1, Note note2) {
+                return note1.color.compareTo(note2.color);
+            }
+        });
+        return notes;
+    }
+
+    public ArrayList<Note> getNotesSortedByImagePath(){
+        ArrayList<Note> notes =  getAllNotes();
+        Collections.sort(notes, new Comparator<Note>() {
+            @Override
+            public int compare(Note note1, Note note2) {
+                return note1.imagePath.compareTo(note2.imagePath);
+            }
+        });
+        return notes;
     }
 }
