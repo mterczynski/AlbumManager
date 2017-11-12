@@ -69,8 +69,12 @@ public class DatabaseManager extends SQLiteOpenHelper {
         ArrayList<Note> notes = new ArrayList<>();
         Cursor result = db.rawQuery("SELECT * FROM " + noteTableName, null);
 
+        Log.d("note_edit", "");
+
         while(result.moveToNext()){
             String shortImagePath = "(...)" + result.getString(result.getColumnIndex("image_path")).split(mainFolderName)[1];
+
+            Log.d("note_edit", "color in table: " + result.getString(result.getColumnIndex("color")));
 
             notes.add(new Note( // String Title, String Text, String Color, int id
                 result.getString(result.getColumnIndex("title")),
@@ -96,12 +100,20 @@ public class DatabaseManager extends SQLiteOpenHelper {
     public void updateNote(String noteId, String newTitle, String newColor, String newText){
         SQLiteDatabase db = this.getWritableDatabase();
 
+        Log.d("note_edit", "before update: ");
+
         ContentValues contentValues = new ContentValues();
         contentValues.put("title", newTitle);
         contentValues.put("color", newColor);
         contentValues.put("text", newText);
 
-        db.update(noteTableName, contentValues, "_id = ? ", new String[]{noteId});
+        Log.d("note_edit", "content values set: ");
+        Log.d("note_edit", "cv: newTitle: " + newTitle);
+        Log.d("note_edit", "cv: newColor:  " + newColor);
+        Log.d("note_edit", "cv: newTitle:  " + newText);
+
+        int result = db.update(noteTableName, contentValues, "_id = ? ", new String[]{noteId});
+        Log.d("note_edit", "update result: " + result);
         db.close();
     }
 
