@@ -7,7 +7,7 @@
     tools:context=".Activites.zdjecie">
 
     <FrameLayout
-        android:id="@+id/frameLayout1"
+        android:id="@+id/camera_frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true">

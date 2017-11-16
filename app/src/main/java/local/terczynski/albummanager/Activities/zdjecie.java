@@ -3,6 +3,7 @@ package local.terczynski.albummanager.Activities;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.graphics.Point;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.util.Log;
+import android.view.Display;
 import android.view.Surface;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -24,6 +26,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import local.terczynski.albummanager.Helpers.CameraPreview;
+import local.terczynski.albummanager.Helpers.Circle;
 import local.terczynski.albummanager.R;
 
 public class zdjecie extends AppCompatActivity {
@@ -75,7 +78,6 @@ public class zdjecie extends AppCompatActivity {
         }
     }
 
-
     public static void setCameraDisplayOrientation(Activity activity,
                                                    int cameraId, android.hardware.Camera camera) {
         android.hardware.Camera.CameraInfo info =
@@ -99,7 +101,6 @@ public class zdjecie extends AppCompatActivity {
         }
         camera.setDisplayOrientation(result);
     }
-
     private Camera.PictureCallback camPictureCallback = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
@@ -113,7 +114,6 @@ public class zdjecie extends AppCompatActivity {
             // odswież (lub nie) kamerę (zapobiega to przycięciu się kamery po zrobieniu zdjęcia)
 
             camera.startPreview();
-
         }
     };
 
@@ -291,7 +291,7 @@ public class zdjecie extends AppCompatActivity {
 
     private void initPreview() {
         _cameraPreview = new CameraPreview(zdjecie.this, camera);
-        _frameLayout = (FrameLayout) findViewById(R.id.frameLayout1);
+        _frameLayout = (FrameLayout) findViewById(R.id.camera_frameLayout);
         _frameLayout.addView(_cameraPreview);
     }
 
@@ -315,6 +315,17 @@ public class zdjecie extends AppCompatActivity {
         addClickListeners();
         refreshCameraOptions();
         camera.startPreview();
+
+        // draw circle:
+
+        Point screenSize = new Point();
+        getWindowManager().getDefaultDisplay().getSize(screenSize);
+        Circle circle = new Circle(zdjecie.this, screenSize);
+
+        FrameLayout camera_frameLayout = (FrameLayout) findViewById(R.id.camera_frameLayout);
+
+        camera_frameLayout.addView(circle);
+
     }
     @Override
     protected void onRestart() {
