@@ -27,6 +27,7 @@ import java.util.Locale;
 
 import local.terczynski.albummanager.Helpers.CameraPreview;
 import local.terczynski.albummanager.Helpers.Circle;
+import local.terczynski.albummanager.Helpers.Miniature;
 import local.terczynski.albummanager.R;
 
 public class zdjecie extends AppCompatActivity {
@@ -34,7 +35,7 @@ public class zdjecie extends AppCompatActivity {
     private Camera camera;
     private int cameraId = -1;
     private CameraPreview _cameraPreview;
-    private FrameLayout _frameLayout;
+    private FrameLayout camera_frameLayout;
 
     // byte[] of taken picture
     private byte[] photoData;
@@ -46,6 +47,7 @@ public class zdjecie extends AppCompatActivity {
     private ArrayList<String> exposureCompensationOptions;
 
     private void initCamera() {
+        camera_frameLayout = (FrameLayout) findViewById(R.id.camera_frameLayout);
         boolean cam = getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA);
 
         if (!cam) {
@@ -291,8 +293,8 @@ public class zdjecie extends AppCompatActivity {
 
     private void initPreview() {
         _cameraPreview = new CameraPreview(zdjecie.this, camera);
-        _frameLayout = (FrameLayout) findViewById(R.id.camera_frameLayout);
-        _frameLayout.addView(_cameraPreview);
+        camera_frameLayout = (FrameLayout) findViewById(R.id.camera_frameLayout);
+        camera_frameLayout.addView(_cameraPreview);
     }
 
     @Override
@@ -321,10 +323,12 @@ public class zdjecie extends AppCompatActivity {
         Point screenSize = new Point();
         getWindowManager().getDefaultDisplay().getSize(screenSize);
         Circle circle = new Circle(zdjecie.this, screenSize);
-
-        FrameLayout camera_frameLayout = (FrameLayout) findViewById(R.id.camera_frameLayout);
-
         camera_frameLayout.addView(circle);
+
+        // draw rect:
+
+        Miniature miniature = new Miniature(zdjecie.this, null, new Point(30,30));
+        camera_frameLayout.addView(miniature);
 
     }
     @Override
