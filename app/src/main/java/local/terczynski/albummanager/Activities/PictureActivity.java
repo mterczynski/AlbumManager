@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.util.Log;
-import android.view.Display;
 import android.view.Surface;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -33,7 +32,7 @@ import local.terczynski.albummanager.Helpers.Circle;
 import local.terczynski.albummanager.Helpers.Miniature;
 import local.terczynski.albummanager.R;
 
-public class zdjecie extends AppCompatActivity {
+public class PictureActivity extends AppCompatActivity {
 
     private Camera camera;
     private int cameraId = -1;
@@ -136,7 +135,7 @@ public class zdjecie extends AppCompatActivity {
             int diffX = (int)(Math.cos(angle) * circleRadius);
             int diffY = (int)(circleRadius * Math.sin(angle));
 
-            Miniature miniature = new Miniature(zdjecie.this, bitmap, new Point(screenSize.x/4 + diffX, screenSize.y/4 + diffY));
+            Miniature miniature = new Miniature(PictureActivity.this, bitmap, new Point(screenSize.x/4 + diffX, screenSize.y/4 + diffY));
             camera_frameLayout.addView(miniature);
         }
     };
@@ -156,7 +155,7 @@ public class zdjecie extends AppCompatActivity {
         colorsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            AlertDialog.Builder alert = new AlertDialog.Builder(zdjecie.this);
+            AlertDialog.Builder alert = new AlertDialog.Builder(PictureActivity.this);
             alert.setTitle("Efekty kolorów:");
             alert.setItems(supportedColorEffects, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
@@ -170,7 +169,7 @@ public class zdjecie extends AppCompatActivity {
         flashButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            AlertDialog.Builder alert = new AlertDialog.Builder(zdjecie.this);
+            AlertDialog.Builder alert = new AlertDialog.Builder(PictureActivity.this);
             //String title = getString(R.string.folder_choose);
             alert.setTitle("Balans bieli");
             alert.setItems(whiteBalanceOptions, new DialogInterface.OnClickListener() {
@@ -185,7 +184,7 @@ public class zdjecie extends AppCompatActivity {
         sunButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            AlertDialog.Builder alert = new AlertDialog.Builder(zdjecie.this);
+            AlertDialog.Builder alert = new AlertDialog.Builder(PictureActivity.this);
             alert.setTitle("Wybierz kompensację naświetlenia:");
             alert.setItems(exposureCompensationOptions.toArray(new String[0]), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
@@ -200,7 +199,7 @@ public class zdjecie extends AppCompatActivity {
         resizeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            AlertDialog.Builder alert = new AlertDialog.Builder(zdjecie.this);
+            AlertDialog.Builder alert = new AlertDialog.Builder(PictureActivity.this);
 
 
             String [] supportedPictureSizesAsStringArray = new String[supportedPictureSizes.length];
@@ -235,7 +234,7 @@ public class zdjecie extends AppCompatActivity {
                 }
                 camera = Camera.open(cameraId);
 
-                setCameraDisplayOrientation(zdjecie.this, cameraId, camera);
+                setCameraDisplayOrientation(PictureActivity.this, cameraId, camera);
                 try {
                     camera.setPreviewDisplay(_cameraPreview.getSurfaceHolder());
                 } catch (IOException e) {
@@ -260,7 +259,7 @@ public class zdjecie extends AppCompatActivity {
             SimpleDateFormat dFormat = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US);
             final String newPhotoName = dFormat.format(new Date());
 
-            AlertDialog.Builder alert = new AlertDialog.Builder(zdjecie.this);
+            AlertDialog.Builder alert = new AlertDialog.Builder(PictureActivity.this);
             alert.setTitle("Wybierz album:");
 
             ArrayList<String> foldersList = new ArrayList<String>();
@@ -314,7 +313,7 @@ public class zdjecie extends AppCompatActivity {
     }
 
     private void initPreview() {
-        _cameraPreview = new CameraPreview(zdjecie.this, camera);
+        _cameraPreview = new CameraPreview(PictureActivity.this, camera);
         camera_frameLayout = (FrameLayout) findViewById(R.id.camera_frameLayout);
         camera_frameLayout.addView(_cameraPreview);
     }
@@ -344,7 +343,7 @@ public class zdjecie extends AppCompatActivity {
 
         screenSize = new Point();
         getWindowManager().getDefaultDisplay().getSize(screenSize);
-        Circle circle = new Circle(zdjecie.this, screenSize);
+        Circle circle = new Circle(PictureActivity.this, screenSize);
         camera_frameLayout.addView(circle);
     }
     @Override

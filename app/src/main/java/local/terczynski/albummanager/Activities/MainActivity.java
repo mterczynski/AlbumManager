@@ -66,25 +66,25 @@ public class MainActivity extends AppCompatActivity {
         layout_zdjecie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, zdjecie.class));
+                startActivity(new Intent(MainActivity.this, PictureActivity.class));
             }
         });
         layout_albumy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, albumy.class));
+                startActivity(new Intent(MainActivity.this, AlbumsActivity.class));
             }
         });
         layout_kolaz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, kolaz.class));
+                startActivity(new Intent(MainActivity.this, CollageActivity.class));
             }
         });
         layout_zobacz_w_sieci.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, zobacz_w_sieci.class));
+                startActivity(new Intent(MainActivity.this, SeeOnlineActivity.class));
             }
         });
         layout_notatki.setOnClickListener(new View.OnClickListener() {

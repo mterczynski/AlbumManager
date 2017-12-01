@@ -6,11 +6,11 @@ import android.os.Bundle;
 import local.terczynski.albummanager.R;
 
 
-public class kolaz extends AppCompatActivity {
+public class SeeOnlineActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kolaz);
+        setContentView(R.layout.activity_zobacz_w_sieci);
     }
 }

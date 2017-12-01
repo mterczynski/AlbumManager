@@ -55,7 +55,7 @@ public class Album_details extends AppCompatActivity {
                 alert.setPositiveButton("Tak", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         currentDir.delete();
-                        Intent intent = new Intent(Album_details.this, albumy.class);
+                        Intent intent = new Intent(Album_details.this, AlbumsActivity.class);
                         startActivity(intent);
                     }
 
@@ -220,7 +220,7 @@ public class Album_details extends AppCompatActivity {
             alert.setPositiveButton("Tak", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     currentDir.delete();
-                    Intent intent = new Intent(Album_details.this, albumy.class);
+                    Intent intent = new Intent(Album_details.this, AlbumsActivity.class);
                     startActivity(intent);
                 }
 

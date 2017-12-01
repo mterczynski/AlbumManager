@@ -17,13 +17,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activities.kolaz"></activity>
-        <activity android:name=".Activities.albumy"></activity>
+        <activity android:name=".Activities.CollageActivity"></activity>
+        <activity android:name=".Activities.AlbumsActivity"></activity>
         <activity android:name=".Activities.NotatkiActivity"></activity>
-        <activity android:name=".Activities.zobacz_w_sieci"></activity>
+        <activity android:name=".Activities.SeeOnlineActivity"></activity>
         <activity android:name=".Activities.Album_details"></activity>
         <activity android:name=".Activities.PictureDetailsActivity"></activity>
-        <activity android:name=".Activities.zdjecie"></activity>
+        <activity android:name=".Activities.PictureActivity"></activity>
 
     </application>
 

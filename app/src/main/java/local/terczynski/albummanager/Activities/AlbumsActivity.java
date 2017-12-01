@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,7 +20,7 @@ import java.io.File;
 
 import local.terczynski.albummanager.R;
 
-public class albumy extends AppCompatActivity {
+public class AlbumsActivity extends AppCompatActivity {
 
     String mainFolderName;
     private File SYS_pictures;
@@ -44,7 +43,7 @@ public class albumy extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 LinearLayout kliknietyLayout = (LinearLayout)view;
                 TextView textViewZNazwa = (TextView)kliknietyLayout.getChildAt(1);
-                Intent intent = new Intent(albumy.this, Album_details.class);
+                Intent intent = new Intent(AlbumsActivity.this, Album_details.class);
                 intent.putExtra("currentDir", new File(mainFolder,textViewZNazwa.getText() + ""));
                 startActivity(intent);
             }
@@ -66,11 +65,11 @@ public class albumy extends AppCompatActivity {
         plus_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(albumy.this);
+                AlertDialog.Builder alert = new AlertDialog.Builder(AlbumsActivity.this);
                 alert.setTitle("Nowy album");
                 alert.setMessage("Podaj nazwę albumu");
 
-                final EditText input = new EditText(albumy.this);
+                final EditText input = new EditText(AlbumsActivity.this);
                 alert.setView(input);
                 alert.setNeutralButton("Dodaj", new DialogInterface.OnClickListener() {
                     @Override
@@ -78,7 +77,7 @@ public class albumy extends AppCompatActivity {
                     String folderName = input.getText().toString();
                     File newFolder = new File(mainFolder, folderName);
                     if(!newFolder.mkdirs()){
-                        AlertDialog.Builder fileExistAlert = new AlertDialog.Builder(albumy.this);
+                        AlertDialog.Builder fileExistAlert = new AlertDialog.Builder(AlbumsActivity.this);
                         fileExistAlert.setTitle("Uwaga");
                         fileExistAlert.setMessage("Nie można utworzyć folderu. Być może folder z taką nazwą już istnieje");
                         fileExistAlert.show();
