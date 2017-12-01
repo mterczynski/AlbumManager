@@ -134,8 +134,8 @@ public class PictureActivity extends AppCompatActivity {
                 double angle = 2 * Math.PI/(miniatures.size()) * i;
                 double circleDiameter = 100 + 25;
 
-                int diffX = (int)(Math.cos(angle) * circleDiameter) - 50/4;
-                int diffY = (int)(circleDiameter * Math.sin(angle)) - 80/4;
+                int diffX = (int)(Math.cos(angle) * circleDiameter) - Miniature.size.x/4;
+                int diffY = (int)(circleDiameter * Math.sin(angle)) - Miniature.size.y/4;
 
                 Miniature miniature = miniatures.get(i);
                 miniature.setX(screenSize.x/4 + diffX);
