@@ -128,15 +128,24 @@ public class PictureActivity extends AppCompatActivity {
             // zmiana wielkości bitmapy - resize do przewidywanej wielkości miniatury:
             Bitmap smallBmp = Bitmap.createScaledBitmap(bitmap , 30, 50, false);
             // TODO: add miniature to list
+            miniatures.add(new Miniature(PictureActivity.this, bitmap, new Point(100,100)));
 
-            double angle = 2 * Math.PI/miniatures.size();
-            double circleRadius = 50;
+            for(int i=0; i<miniatures.size(); i++){
+                double angle = 2 * Math.PI/(miniatures.size()) * i;
+                double circleDiameter = 100 + 25;
 
-            int diffX = (int)(Math.cos(angle) * circleRadius);
-            int diffY = (int)(circleRadius * Math.sin(angle));
+                int diffX = (int)(Math.cos(angle) * circleDiameter) - 50/4;
+                int diffY = (int)(circleDiameter * Math.sin(angle)) - 80/4;
 
-            Miniature miniature = new Miniature(PictureActivity.this, bitmap, new Point(screenSize.x/4 + diffX, screenSize.y/4 + diffY));
-            camera_frameLayout.addView(miniature);
+                Miniature miniature = miniatures.get(i);
+                miniature.setX(screenSize.x/4 + diffX);
+                miniature.setY(screenSize.y/4 + diffY);
+
+                Log.d("miniaturePosition", miniature.getX() + "," + miniature.getY());
+
+                camera_frameLayout.removeView(miniature);
+                camera_frameLayout.addView(miniature);
+            }
         }
     };
 

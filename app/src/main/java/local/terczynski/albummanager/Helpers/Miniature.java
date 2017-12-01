@@ -14,10 +14,24 @@ public class Miniature extends android.support.v7.widget.AppCompatImageView {
     private final Point minatureSize = new Point(50,80);
     public Miniature(Context context, Bitmap bitmap, Point miniaturePosition) {
         super(context);
-        this.setX(miniaturePosition.x - 50/4);
-        this.setY(miniaturePosition.y - 60/4);
+        this.setX(miniaturePosition.x);
+        this.setY(miniaturePosition.y);
     }
 
+//    public void setX(float newX){
+//        Log.d("miniaturePos", "newX: " + newX);
+//        if(newX<0){
+//            return;
+//        }
+//        this.setX(newX - 50/4);
+//    }
+//    public void setY(float newY){
+//        Log.d("miniaturePos", "newY: " + newY);
+//        if(newY<0){
+//            return;
+//        }
+//        this.setY(newY - 80/4);
+//    }
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
