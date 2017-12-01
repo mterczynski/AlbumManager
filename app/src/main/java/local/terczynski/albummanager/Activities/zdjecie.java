@@ -3,6 +3,8 @@ package local.terczynski.albummanager.Activities;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
@@ -23,6 +25,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import local.terczynski.albummanager.Helpers.CameraPreview;
@@ -45,6 +48,10 @@ public class zdjecie extends AppCompatActivity {
     private String[]supportedColorEffects;
     private Camera.Size[] supportedPictureSizes;
     private ArrayList<String> exposureCompensationOptions;
+    private Point screenSize;
+
+    private List<Miniature> miniatures = new ArrayList<Miniature>();
+//    private int miniatureCount = 0;
 
     private void initCamera() {
         camera_frameLayout = (FrameLayout) findViewById(R.id.camera_frameLayout);
@@ -116,6 +123,21 @@ public class zdjecie extends AppCompatActivity {
             // odswież (lub nie) kamerę (zapobiega to przycięciu się kamery po zrobieniu zdjęcia)
 
             camera.startPreview();
+
+// miniatures:
+            Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+            // zmiana wielkości bitmapy - resize do przewidywanej wielkości miniatury:
+            Bitmap smallBmp = Bitmap.createScaledBitmap(bitmap , 30, 50, false);
+            // TODO: add miniature to list
+
+            double angle = 2 * Math.PI/miniatures.size();
+            double circleRadius = 50;
+
+            int diffX = (int)(Math.cos(angle) * circleRadius);
+            int diffY = (int)(circleRadius * Math.sin(angle));
+
+            Miniature miniature = new Miniature(zdjecie.this, bitmap, new Point(screenSize.x/4 + diffX, screenSize.y/4 + diffY));
+            camera_frameLayout.addView(miniature);
         }
     };
 
@@ -320,16 +342,10 @@ public class zdjecie extends AppCompatActivity {
 
         // draw circle:
 
-        Point screenSize = new Point();
+        screenSize = new Point();
         getWindowManager().getDefaultDisplay().getSize(screenSize);
         Circle circle = new Circle(zdjecie.this, screenSize);
         camera_frameLayout.addView(circle);
-
-        // draw rect:
-
-        Miniature miniature = new Miniature(zdjecie.this, null, new Point(30,30));
-        camera_frameLayout.addView(miniature);
-
     }
     @Override
     protected void onRestart() {

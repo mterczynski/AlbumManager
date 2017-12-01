@@ -7,18 +7,15 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.util.Log;
 
 public class Miniature extends android.support.v7.widget.AppCompatImageView {
 
-    private final Point minatureSize = new Point(50,50);
-    public Point position = new Point();
-
-    public Miniature(Context context, Bitmap bitmap, Point imageSize) {
+    private final Point minatureSize = new Point(50,80);
+    public Miniature(Context context, Bitmap bitmap, Point miniaturePosition) {
         super(context);
-    }
-    public Miniature(Context context, Bitmap bitmap, Point imageSize, Point miniaturePosition) {
-        super(context);
-        this.position = miniaturePosition;
+        this.setX(miniaturePosition.x - 50/4);
+        this.setY(miniaturePosition.y - 60/4);
     }
 
     @Override
@@ -31,7 +28,9 @@ public class Miniature extends android.support.v7.widget.AppCompatImageView {
         paint.setStrokeWidth(3); // border thickness
         paint.setColor(Color.argb(150, 255, 255, 255));
 
-        Rect rect = new Rect(position.x, position.y, position.x + minatureSize.x, position.y + minatureSize.y);
+        Rect rect = new Rect((int)this.getX(), (int)this.getY(), (int)this.getX() + minatureSize.x, (int)this.getY() + minatureSize.y);
+
+        Log.d("miniature", "x: " + this.getX() + ", y: " + this.getY());
 
         canvas.drawRect(rect, paint);
     }
