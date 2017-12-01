@@ -196,7 +196,7 @@ public class NotatkiActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notatki);
+        setContentView(R.layout.activity_notes);
 
         dbManager = new DatabaseManager(
             NotatkiActivity.this, // TODO check activity z galerią zdjęć

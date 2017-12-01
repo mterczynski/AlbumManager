@@ -52,7 +52,7 @@ public class AlbumsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_albumy);
+        setContentView(R.layout.activity_albums);
 
         mainFolderName = getString(R.string.mainFolderName);
         SYS_pictures =  Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);

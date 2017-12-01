@@ -309,7 +309,7 @@ public class PictureActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
-        setContentView(R.layout.activity_zdjecie);
+        setContentView(R.layout.activity_picture);
     }
 
     private void initPreview() {

@@ -11,6 +11,6 @@ public class CollageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kolaz);
+        setContentView(R.layout.activity_collage);
     }
 }

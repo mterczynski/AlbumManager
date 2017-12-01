@@ -11,6 +11,6 @@ public class SeeOnlineActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_zobacz_w_sieci);
+        setContentView(R.layout.activity_see_online);
     }
 }
