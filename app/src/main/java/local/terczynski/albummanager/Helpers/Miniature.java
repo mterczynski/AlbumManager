@@ -12,10 +12,14 @@ import android.util.Log;
 public class Miniature extends android.support.v7.widget.AppCompatImageView {
 
     public static Point size = new Point(120,120);
+
+    private Bitmap bitmap;
+
     public Miniature(Context context, Bitmap bitmap, Point miniaturePosition) {
         super(context);
         this.setX(miniaturePosition.x);
         this.setY(miniaturePosition.y);
+        this.bitmap = Bitmap.createScaledBitmap(bitmap , size.x, size.y, false);
     }
 
 //    public void setX(float newX){
@@ -47,5 +51,6 @@ public class Miniature extends android.support.v7.widget.AppCompatImageView {
         Log.d("miniature", "x: " + this.getX() + ", y: " + this.getY());
 
         canvas.drawRect(rect, paint);
+        canvas.drawBitmap(bitmap, this.getX(), this.getY(), new Paint());
     }
 }
