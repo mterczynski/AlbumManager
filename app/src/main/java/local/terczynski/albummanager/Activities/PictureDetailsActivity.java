@@ -58,7 +58,7 @@ public class PictureDetailsActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                     File imageFile = new File(imageFullPath);
                     imageFile.delete();
-//                        Intent backToAlbumDetails = new Intent(PictureDetailsActivity.this, Album_details.class);
+//                        Intent backToAlbumDetails = new Intent(PictureDetailsActivity.this, AlbumDetailsActivity.class);
 //                        backToAlbumDetails.putExtra("currentDir", (File)getIntent().getExtras().get("currentDir"));
 //
 //                        startActivity(backToAlbumDetails);

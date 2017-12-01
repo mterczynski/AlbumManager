@@ -20,7 +20,7 @@ import local.terczynski.albummanager.Helpers.CustomImageView;
 import local.terczynski.albummanager.Helpers.DatabaseManager;
 import local.terczynski.albummanager.R;
 
-public class Album_details extends AppCompatActivity {
+public class AlbumDetailsActivity extends AppCompatActivity {
 
     private DatabaseManager db;
 
@@ -49,13 +49,13 @@ public class Album_details extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                AlertDialog.Builder alert = new AlertDialog.Builder(Album_details.this);
+                AlertDialog.Builder alert = new AlertDialog.Builder(AlbumDetailsActivity.this);
                 alert.setTitle("Usuwanie");
                 alert.setMessage("Czy usunąć folder \"" + currentDir.getName() + "\"?");
                 alert.setPositiveButton("Tak", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         currentDir.delete();
-                        Intent intent = new Intent(Album_details.this, AlbumsActivity.class);
+                        Intent intent = new Intent(AlbumDetailsActivity.this, AlbumsActivity.class);
                         startActivity(intent);
                     }
 
@@ -85,7 +85,7 @@ public class Album_details extends AppCompatActivity {
         int iloscZdjec = zdjeciaWFolderze.length;
 
         for(int i=0; i<iloscZdjec; i+= 4){
-            final CustomImageView imageView1 = new CustomImageView(Album_details.this, R.drawable.net_icon, db, zdjeciaWFolderze[i].getAbsolutePath());
+            final CustomImageView imageView1 = new CustomImageView(AlbumDetailsActivity.this, R.drawable.net_icon, db, zdjeciaWFolderze[i].getAbsolutePath());
             CustomImageView imageView2 = null;
             CustomImageView imageView3 = null;
             CustomImageView imageView4 = null;
@@ -94,19 +94,19 @@ public class Album_details extends AppCompatActivity {
             imageView1.setImageBitmap(bmp1);
 
             if(i +1 < iloscZdjec){
-                imageView2 = new CustomImageView(Album_details.this, R.drawable.net_icon, db, zdjeciaWFolderze[i+1].getAbsolutePath());
+                imageView2 = new CustomImageView(AlbumDetailsActivity.this, R.drawable.net_icon, db, zdjeciaWFolderze[i+1].getAbsolutePath());
                 imageView2.getLayoutParams().width = width2;
                 Bitmap bmp = betterImageDecode(zdjeciaWFolderze[i+1].getAbsolutePath());
                 imageView2.setImageBitmap(bmp);
             }
             if(i +2 < iloscZdjec){
-                imageView3 = new CustomImageView(Album_details.this, R.drawable.net_icon, db, zdjeciaWFolderze[i+2].getAbsolutePath());
+                imageView3 = new CustomImageView(AlbumDetailsActivity.this, R.drawable.net_icon, db, zdjeciaWFolderze[i+2].getAbsolutePath());
                 imageView3.getLayoutParams().width = width2;
                 Bitmap bmp = betterImageDecode(zdjeciaWFolderze[i+2].getAbsolutePath());
                 imageView3.setImageBitmap(bmp);
             }
             if(i +3 < iloscZdjec){
-                imageView4 = new CustomImageView(Album_details.this, R.drawable.net_icon, db, zdjeciaWFolderze[i+3].getAbsolutePath());
+                imageView4 = new CustomImageView(AlbumDetailsActivity.this, R.drawable.net_icon, db, zdjeciaWFolderze[i+3].getAbsolutePath());
                 imageView4.getLayoutParams().width = width1;
                 Bitmap bmp = betterImageDecode(zdjeciaWFolderze[i+3].getAbsolutePath());
                 imageView4.setImageBitmap(bmp);
@@ -114,8 +114,8 @@ public class Album_details extends AppCompatActivity {
 
             imageView1.getLayoutParams().width = width1;
 
-            LinearLayout linearny = new LinearLayout(Album_details.this);
-            LinearLayout linearny2 = new LinearLayout(Album_details.this);
+            LinearLayout linearny = new LinearLayout(AlbumDetailsActivity.this);
+            LinearLayout linearny2 = new LinearLayout(AlbumDetailsActivity.this);
             linearny.addView(imageView1);
             if(imageView2 != null){
                 linearny.addView(imageView2);
@@ -132,7 +132,7 @@ public class Album_details extends AppCompatActivity {
                 imageView1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                    Intent newIntent = new Intent(Album_details.this, PictureDetailsActivity.class);
+                    Intent newIntent = new Intent(AlbumDetailsActivity.this, PictureDetailsActivity.class);
                     newIntent.putExtra("pictureFullPath",zdjeciaWFolderze[finalI].getAbsolutePath());
 
                     newIntent.putExtra("currentDir", (File)getIntent().getExtras().get("currentDir"));
@@ -145,7 +145,7 @@ public class Album_details extends AppCompatActivity {
                 imageView2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                    Intent newIntent = new Intent(Album_details.this, PictureDetailsActivity.class);
+                    Intent newIntent = new Intent(AlbumDetailsActivity.this, PictureDetailsActivity.class);
                     newIntent.putExtra("pictureFullPath",zdjeciaWFolderze[finalI+1].getAbsolutePath());
 
                     newIntent.putExtra("currentDir", (File)getIntent().getExtras().get("currentDir"));
@@ -159,7 +159,7 @@ public class Album_details extends AppCompatActivity {
                 imageView3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                    Intent newIntent = new Intent(Album_details.this, PictureDetailsActivity.class);
+                    Intent newIntent = new Intent(AlbumDetailsActivity.this, PictureDetailsActivity.class);
                     newIntent.putExtra("pictureFullPath",zdjeciaWFolderze[finalI+2].getAbsolutePath());
 
                     newIntent.putExtra("currentDir", (File)getIntent().getExtras().get("currentDir"));
@@ -172,7 +172,7 @@ public class Album_details extends AppCompatActivity {
                 imageView4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                    Intent newIntent = new Intent(Album_details.this, PictureDetailsActivity.class);
+                    Intent newIntent = new Intent(AlbumDetailsActivity.this, PictureDetailsActivity.class);
                     newIntent.putExtra("pictureFullPath",zdjeciaWFolderze[finalI+3].getAbsolutePath());
                     newIntent.putExtra("currentDir", (File)getIntent().getExtras().get("currentDir"));
                     startActivity(newIntent);
@@ -195,7 +195,7 @@ public class Album_details extends AppCompatActivity {
     protected void onResume() {
 
         db = new DatabaseManager(
-            Album_details.this, // activity z galerią zdjęć
+            AlbumDetailsActivity.this, // activity z galerią zdjęć
             getString(R.string.dbName), // database name
             null,
             7 //wersja bazy, po zmianie schematu bazy należy ją zwiększyć
@@ -214,13 +214,13 @@ public class Album_details extends AppCompatActivity {
         deleteFolderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            AlertDialog.Builder alert = new AlertDialog.Builder(Album_details.this);
+            AlertDialog.Builder alert = new AlertDialog.Builder(AlbumDetailsActivity.this);
             alert.setTitle("Usuwanie");
             alert.setMessage("Czy usunąć folder \"" + currentDir.getName() + "\"?");
             alert.setPositiveButton("Tak", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     currentDir.delete();
-                    Intent intent = new Intent(Album_details.this, AlbumsActivity.class);
+                    Intent intent = new Intent(AlbumDetailsActivity.this, AlbumsActivity.class);
                     startActivity(intent);
                 }
 
@@ -250,7 +250,7 @@ public class Album_details extends AppCompatActivity {
         int iloscZdjec = zdjeciaWFolderze.length;
 
         for(int i=0; i<iloscZdjec; i+= 4){
-            final CustomImageView imageView1 = new CustomImageView(Album_details.this, R.drawable.net_icon, db, zdjeciaWFolderze[i].getAbsolutePath());
+            final CustomImageView imageView1 = new CustomImageView(AlbumDetailsActivity.this, R.drawable.net_icon, db, zdjeciaWFolderze[i].getAbsolutePath());
             CustomImageView imageView2 = null;
             CustomImageView imageView3 = null;
             CustomImageView imageView4 = null;
@@ -259,19 +259,19 @@ public class Album_details extends AppCompatActivity {
             imageView1.setImageBitmap(bmp1);
 
             if(i +1 < iloscZdjec){
-                imageView2 = new CustomImageView(Album_details.this, R.drawable.net_icon, db, zdjeciaWFolderze[i+1].getAbsolutePath());
+                imageView2 = new CustomImageView(AlbumDetailsActivity.this, R.drawable.net_icon, db, zdjeciaWFolderze[i+1].getAbsolutePath());
                 imageView2.getLayoutParams().width = width2;
                 Bitmap bmp = betterImageDecode(zdjeciaWFolderze[i+1].getAbsolutePath());
                 imageView2.setImageBitmap(bmp);
             }
             if(i +2 < iloscZdjec){
-                imageView3 = new CustomImageView(Album_details.this, R.drawable.net_icon, db, zdjeciaWFolderze[i+2].getAbsolutePath());
+                imageView3 = new CustomImageView(AlbumDetailsActivity.this, R.drawable.net_icon, db, zdjeciaWFolderze[i+2].getAbsolutePath());
                 imageView3.getLayoutParams().width = width2;
                 Bitmap bmp = betterImageDecode(zdjeciaWFolderze[i+2].getAbsolutePath());
                 imageView3.setImageBitmap(bmp);
             }
             if(i +3 < iloscZdjec){
-                imageView4 = new CustomImageView(Album_details.this, R.drawable.net_icon, db, zdjeciaWFolderze[i+3].getAbsolutePath());
+                imageView4 = new CustomImageView(AlbumDetailsActivity.this, R.drawable.net_icon, db, zdjeciaWFolderze[i+3].getAbsolutePath());
                 imageView4.getLayoutParams().width = width1;
                 Bitmap bmp = betterImageDecode(zdjeciaWFolderze[i+3].getAbsolutePath());
                 imageView4.setImageBitmap(bmp);
@@ -279,8 +279,8 @@ public class Album_details extends AppCompatActivity {
 
             imageView1.getLayoutParams().width = width1;
 
-            LinearLayout linearny = new LinearLayout(Album_details.this);
-            LinearLayout linearny2 = new LinearLayout(Album_details.this);
+            LinearLayout linearny = new LinearLayout(AlbumDetailsActivity.this);
+            LinearLayout linearny2 = new LinearLayout(AlbumDetailsActivity.this);
             linearny.addView(imageView1);
             if(imageView2 != null){
                 linearny.addView(imageView2);
@@ -297,7 +297,7 @@ public class Album_details extends AppCompatActivity {
                 imageView1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                    Intent newIntent = new Intent(Album_details.this, PictureDetailsActivity.class);
+                    Intent newIntent = new Intent(AlbumDetailsActivity.this, PictureDetailsActivity.class);
                     newIntent.putExtra("pictureFullPath",zdjeciaWFolderze[finalI].getAbsolutePath());
 
                     newIntent.putExtra("currentDir", (File)getIntent().getExtras().get("currentDir"));
@@ -310,7 +310,7 @@ public class Album_details extends AppCompatActivity {
                 imageView2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                    Intent newIntent = new Intent(Album_details.this, PictureDetailsActivity.class);
+                    Intent newIntent = new Intent(AlbumDetailsActivity.this, PictureDetailsActivity.class);
                     newIntent.putExtra("pictureFullPath",zdjeciaWFolderze[finalI+1].getAbsolutePath());
 
                     newIntent.putExtra("currentDir", (File)getIntent().getExtras().get("currentDir"));
@@ -323,7 +323,7 @@ public class Album_details extends AppCompatActivity {
                 imageView3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                    Intent newIntent = new Intent(Album_details.this, PictureDetailsActivity.class);
+                    Intent newIntent = new Intent(AlbumDetailsActivity.this, PictureDetailsActivity.class);
                     newIntent.putExtra("pictureFullPath",zdjeciaWFolderze[finalI+2].getAbsolutePath());
 
                     newIntent.putExtra("currentDir", (File)getIntent().getExtras().get("currentDir"));
@@ -336,7 +336,7 @@ public class Album_details extends AppCompatActivity {
                 imageView4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                    Intent newIntent = new Intent(Album_details.this, PictureDetailsActivity.class);
+                    Intent newIntent = new Intent(AlbumDetailsActivity.this, PictureDetailsActivity.class);
                     newIntent.putExtra("pictureFullPath",zdjeciaWFolderze[finalI+3].getAbsolutePath());
 
                     newIntent.putExtra("currentDir", (File)getIntent().getExtras().get("currentDir"));

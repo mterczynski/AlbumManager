@@ -43,7 +43,7 @@ public class AlbumsActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 LinearLayout kliknietyLayout = (LinearLayout)view;
                 TextView textViewZNazwa = (TextView)kliknietyLayout.getChildAt(1);
-                Intent intent = new Intent(AlbumsActivity.this, Album_details.class);
+                Intent intent = new Intent(AlbumsActivity.this, AlbumDetailsActivity.class);
                 intent.putExtra("currentDir", new File(mainFolder,textViewZNazwa.getText() + ""));
                 startActivity(intent);
             }
