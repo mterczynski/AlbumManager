@@ -23,7 +23,9 @@
         <activity android:name=".Activities.SeeOnlineActivity"></activity>
         <activity android:name=".Activities.AlbumDetailsActivity"></activity>
         <activity android:name=".Activities.PictureDetailsActivity"></activity>
-        <activity android:name=".Activities.PictureActivity"></activity>
+        <activity android:name=".Activities.PictureActivity"
+            android:screenOrientation="portrait">
+        </activity>
 
     </application>
 
