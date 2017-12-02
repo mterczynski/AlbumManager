@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void createAppFolderIfDoesntExist(){
         String mainFolderName = getString(R.string.mainFolderName);
+
         File SYS_pictures = Environment.getExternalStoragePublicDirectory( Environment.DIRECTORY_PICTURES );
         File mainDir = new File(SYS_pictures, mainFolderName);
 

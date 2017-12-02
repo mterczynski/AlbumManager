@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.util.Log;
+import android.view.OrientationEventListener;
 import android.view.Surface;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -50,7 +51,7 @@ public class PictureActivity extends AppCompatActivity {
     private Point screenSize;
 
     private List<Miniature> miniatures = new ArrayList<Miniature>();
-//    private int miniatureCount = 0;
+    private OrientationEventListener orientationEventListener;
 
     private void initCamera() {
         camera_frameLayout = (FrameLayout) findViewById(R.id.camera_frameLayout);
@@ -86,10 +87,8 @@ public class PictureActivity extends AppCompatActivity {
         }
     }
 
-    public static void setCameraDisplayOrientation(Activity activity,
-                                                   int cameraId, android.hardware.Camera camera) {
-        android.hardware.Camera.CameraInfo info =
-                new android.hardware.Camera.CameraInfo();
+    public static void setCameraDisplayOrientation(Activity activity, int cameraId, android.hardware.Camera camera) {
+        android.hardware.Camera.CameraInfo info = new android.hardware.Camera.CameraInfo();
         android.hardware.Camera.getCameraInfo(cameraId, info);
         int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
         int degrees = 0;
@@ -319,6 +318,14 @@ public class PictureActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_picture);
+
+        orientationEventListener = new OrientationEventListener(PictureActivity.this) {
+            @Override
+            public void onOrientationChanged(int i) {
+                // i zwraca kąt 0 - 360 stopni podczas obracania ekranem w osi Z
+                // tutaj wykonaj animacje butonów i miniatur zdjęć
+            }
+        };
     }
 
     private void initPreview() {
@@ -337,6 +344,7 @@ public class PictureActivity extends AppCompatActivity {
             camera.release();
             camera = null;
         }
+        orientationEventListener.disable();
     }
     @Override
     protected void onResume() {
@@ -354,6 +362,15 @@ public class PictureActivity extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getSize(screenSize);
         Circle circle = new Circle(PictureActivity.this, screenSize);
         camera_frameLayout.addView(circle);
+        // resume orientationEventListener
+        if (orientationEventListener.canDetectOrientation()) {
+            orientationEventListener.enable();
+            // Log - listener działa
+            Log.d("accel", "working");
+        } else {
+            // Log - listener działa
+            Log.d("accel", "not working");
+        }
     }
     @Override
     protected void onRestart() {
