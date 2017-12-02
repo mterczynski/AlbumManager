@@ -314,7 +314,7 @@ public class PictureActivity extends AppCompatActivity {
                             String newPhotoName = UUID.randomUUID().toString();
                             String pathToSave = mainDir.getAbsolutePath() + File.separator + folderArray[which] + File.separator + newPhotoName;
 
-                            PictureSaver.savePicture(pathToSave, data);
+                            new PictureSaver(PictureActivity.this).savePicture(data, pathToSave);
 //                            Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
 //                            Matrix matrix = new Matrix();
 //                            matrix.postRotate(-90);
