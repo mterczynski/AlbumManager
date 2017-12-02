@@ -50,7 +50,6 @@ public class PictureSaver {
         fs.close();
     }
     public void savePictureWithDialog(final byte[] imageData) {
-        final SimpleDateFormat dFormat = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US);
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
         alert.setTitle("Wybierz album:");
 
@@ -77,7 +76,36 @@ public class PictureSaver {
     }
     public void savePicturesWithDialog(final List<byte[]> imagesData){
         for(byte[] imageData : imagesData){
+            String mainFolderName = context.getResources().getString(R.string.mainFolderName);
+            File SYS_pictures = Environment.getExternalStoragePublicDirectory( Environment.DIRECTORY_PICTURES );
+            final File mainDir = new File(SYS_pictures, mainFolderName);
 
+
+            AlertDialog.Builder alert = new AlertDialog.Builder(context);
+            alert.setTitle("Wybierz album:");
+
+            ArrayList<String> foldersList = new ArrayList<String>();
+            for(File file: mainDir.listFiles()) {
+                if(file.isDirectory()) {
+                    foldersList.add(file.getName());
+                }
+            }
+            final String[] folderArray = foldersList.toArray(new String[0]);
+            alert.setItems(folderArray, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    try {
+                        // save all pictures
+                        for(byte[] data : imagesData){
+                            String newPhotoName = UUID.randomUUID().toString();
+                            String pathToSave = mainDir.getAbsolutePath() + File.separator + folderArray[which] + File.separator + newPhotoName;
+                            savePicture(data, pathToSave);
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            });
+            alert.show();
         }
     }
 }
