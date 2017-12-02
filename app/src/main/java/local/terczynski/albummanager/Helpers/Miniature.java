@@ -13,7 +13,7 @@ import android.graphics.Rect;
 import android.util.Log;
 import android.view.View;
 
-public class Miniature extends android.support.v7.widget.AppCompatImageView implements View.OnLongClickListener {
+public class Miniature extends android.support.v7.widget.AppCompatImageView {
 
     public static Point size = new Point(120,120);
 
@@ -24,8 +24,6 @@ public class Miniature extends android.support.v7.widget.AppCompatImageView impl
         this.setX(miniaturePosition.x);
         this.setY(miniaturePosition.y);
         this.bitmap = Bitmap.createScaledBitmap(bitmap , size.x, size.y, false);
-
-        setOnLongClickListener(this);
     }
 
     @Override
@@ -44,23 +42,5 @@ public class Miniature extends android.support.v7.widget.AppCompatImageView impl
 
         canvas.drawRect(rect, paint);
         canvas.drawBitmap(bitmap, this.getX(), this.getY(), new Paint());
-    }
-
-    @Override
-    public boolean onLongClick(View view) {
-
-        Log.d("debug miniature", "longclick");
-
-        AlertDialog.Builder alert = new AlertDialog.Builder(super.getContext());
-        String[] options = {"podgląd zdjęcia", "usuń bieżące", "zapisz bieżące"};
-        alert.setItems(options, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        });
-
-        alert.show();
-        return false;
     }
 }

@@ -36,6 +36,7 @@ import java.util.UUID;
 import local.terczynski.albummanager.Helpers.CameraPreview;
 import local.terczynski.albummanager.Helpers.Circle;
 import local.terczynski.albummanager.Helpers.Miniature;
+import local.terczynski.albummanager.Helpers.PictureSaver;
 import local.terczynski.albummanager.R;
 
 public class PictureActivity extends AppCompatActivity {
@@ -137,11 +138,37 @@ public class PictureActivity extends AppCompatActivity {
             matrix.postRotate(-90);
             Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
             Bitmap rotatedSmallBitmap = Bitmap.createBitmap(smallBitmap, 0, 0, smallBitmap.getWidth(), smallBitmap.getHeight(), matrix, true);
-            miniatures.add(new Miniature(PictureActivity.this, rotatedSmallBitmap, new Point(100,100)));
+            Miniature newMiniature = new Miniature(PictureActivity.this, rotatedSmallBitmap, new Point(100,100));
+
+            newMiniature.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+
+                    android.app.AlertDialog.Builder alert = new android.app.AlertDialog.Builder(PictureActivity.this);
+                    String[] options = {"podgląd zdjęcia", "usuń bieżące", "zapisz bieżące"};
+                    alert.setItems(options, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            if(i == 0){ // preview this picture
+
+                            } else if(i == 1){ // delete this picture
+
+                            } else if(i == 2){ // save this picture
+//                                PictureSaver.savePicture("", );
+
+                            }
+                        }
+                    });
+                    alert.show();
+                    return false;
+                }
+            });
+
+            miniatures.add(newMiniature);
 
             photosData.add(data);
 
-            for(int i=0; i<miniatures.size(); i++){
+            for(int i=0; i<miniatures.size(); i++){ // display miniatures
                 double angle = 2 * Math.PI/(miniatures.size()) * i;
 
                 int diffX = (int)(Math.cos(angle) * circleDiameter) - Miniature.size.x/4;
@@ -281,18 +308,21 @@ public class PictureActivity extends AppCompatActivity {
             alert.setItems(folderArray, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     try {
+                        // save all pictures
+
                         for(byte[] data : photosData){
                             String newPhotoName = UUID.randomUUID().toString();
                             String pathToSave = mainDir.getAbsolutePath() + File.separator + folderArray[which] + File.separator + newPhotoName;
 
-                            Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-                            Matrix matrix = new Matrix();
-                            matrix.postRotate(-90);
-                            Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-
-                            FileOutputStream fs = new FileOutputStream(pathToSave);
-                            rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fs);
-                            fs.close();
+                            PictureSaver.savePicture(pathToSave, data);
+//                            Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+//                            Matrix matrix = new Matrix();
+//                            matrix.postRotate(-90);
+//                            Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+//
+//                            FileOutputStream fs = new FileOutputStream(pathToSave);
+//                            rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fs);
+//                            fs.close();
                         }
 
                     } catch (Exception ex) {
