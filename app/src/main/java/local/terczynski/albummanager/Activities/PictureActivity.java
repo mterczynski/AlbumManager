@@ -44,8 +44,8 @@ public class PictureActivity extends AppCompatActivity {
     private CameraPreview _cameraPreview;
     private FrameLayout camera_frameLayout;
 
-    // byte[] of taken picture
-    private byte[] photoData;
+    // byte[] of taken pictures
+    private ArrayList<byte[]> photosData = new ArrayList<byte[]>() ;
     // camera options:
     private Camera.Parameters cameraOptions;
     private String[] whiteBalanceOptions;
@@ -135,7 +135,10 @@ public class PictureActivity extends AppCompatActivity {
             Matrix matrix = new Matrix();
             matrix.postRotate(-90);
             Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-            miniatures.add(new Miniature(PictureActivity.this, rotatedBitmap, new Point(100,100)));
+            Bitmap rotatedSmallBitmap = Bitmap.createBitmap(smallBitmap, 0, 0, smallBitmap.getWidth(), smallBitmap.getHeight(), matrix, true);
+            miniatures.add(new Miniature(PictureActivity.this, rotatedSmallBitmap, new Point(100,100)));
+
+            photosData.add(data);
 
             for(int i=0; i<miniatures.size(); i++){
                 double angle = 2 * Math.PI/(miniatures.size()) * i;
@@ -280,9 +283,21 @@ public class PictureActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     String pathToSave = mainDir.getAbsolutePath() + File.separator + folderArray[which] + File.separator + newPhotoName;
                     try {
-                        FileOutputStream fs = new FileOutputStream(pathToSave);
-                        fs.write(photoData);
-                        fs.close();
+//                        FileOutputStream fs = new FileOutputStream(pathToSave);
+//                        fs.write(photoData);
+//                        fs.close();
+
+                        for(byte[] data : photosData){
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                            Matrix matrix = new Matrix();
+                            matrix.postRotate(-90);
+                            Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+
+                            FileOutputStream fs = new FileOutputStream(pathToSave);
+                            rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fs);
+                            fs.close();
+                        }
+
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
