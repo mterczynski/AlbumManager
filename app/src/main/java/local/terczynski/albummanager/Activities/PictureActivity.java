@@ -17,6 +17,8 @@ import android.util.Log;
 import android.view.OrientationEventListener;
 import android.view.Surface;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
@@ -60,6 +62,8 @@ public class PictureActivity extends AppCompatActivity {
     private ImageView changeCameraButton;
     private ImageView takePictureButton;
     private ImageView savePictureButton;
+
+    private double circleDiameter = 125;
 
     private List<Miniature> miniatures = new ArrayList<Miniature>();
     private OrientationEventListener orientationEventListener;
@@ -142,7 +146,6 @@ public class PictureActivity extends AppCompatActivity {
 
             for(int i=0; i<miniatures.size(); i++){
                 double angle = 2 * Math.PI/(miniatures.size()) * i;
-                double circleDiameter = 100 + 25;
 
                 int diffX = (int)(Math.cos(angle) * circleDiameter) - Miniature.size.x/4;
                 int diffY = (int)(circleDiameter * Math.sin(angle)) - Miniature.size.y/4;
@@ -335,10 +338,20 @@ public class PictureActivity extends AppCompatActivity {
                     previousOrientation = 360;
                 }
 
+                for(ImageView miniature : miniatures){
+                    Animation anim = new RotateAnimation(-previousOrientation, -newOrientation,
+                            Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
+                            0.5f);
+                    anim.setRepeatCount(0);
+                    anim.setDuration(1000);
+                    anim.setFillAfter(true);
+
+                    miniature.startAnimation(anim);
+                }
                 for(ImageView button : buttons){
                     ObjectAnimator.ofFloat(button, View.ROTATION, -previousOrientation, -newOrientation)
-                        .setDuration(300)
-                        .start();
+                            .setDuration(300)
+                            .start();
                 }
                 Log.d("rotateAnim", "from " + previousOrientation + "to " + newOrientation);
                 previousOrientation = newOrientation;
