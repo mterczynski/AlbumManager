@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.Point;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
@@ -126,23 +127,15 @@ public class PictureActivity extends AppCompatActivity {
     private Camera.PictureCallback camPictureCallback = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
-
-            // zapisz dane zdjęcia w tablicy typu byte[]
-            // do poźniejszego wykorzystania
-            // ponieważ zapis zdjęcia w galerii powinien być dopiero po akceptacji butonem
-
-            photoData = data;
-
-            // odswież (lub nie) kamerę (zapobiega to przycięciu się kamery po zrobieniu zdjęcia)
-
+            // refresh camera (zapobiega to przycięciu się kamery po zrobieniu zdjęcia)
             camera.startPreview();
-
 // miniatures:
             Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-            // zmiana wielkości bitmapy - resize do przewidywanej wielkości miniatury:
-            Bitmap smallBmp = Bitmap.createScaledBitmap(bitmap , 30, 50, false);
-            // TODO: add miniature to list
-            miniatures.add(new Miniature(PictureActivity.this, bitmap, new Point(100,100)));
+            Bitmap smallBitmap = Bitmap.createScaledBitmap(bitmap , 100, 100, false);
+            Matrix matrix = new Matrix();
+            matrix.postRotate(-90);
+            Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            miniatures.add(new Miniature(PictureActivity.this, rotatedBitmap, new Point(100,100)));
 
             for(int i=0; i<miniatures.size(); i++){
                 double angle = 2 * Math.PI/(miniatures.size()) * i;
