@@ -1,6 +1,9 @@
 package local.terczynski.albummanager.Helpers;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -8,8 +11,9 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.util.Log;
+import android.view.View;
 
-public class Miniature extends android.support.v7.widget.AppCompatImageView {
+public class Miniature extends android.support.v7.widget.AppCompatImageView implements View.OnLongClickListener {
 
     public static Point size = new Point(120,120);
 
@@ -20,22 +24,10 @@ public class Miniature extends android.support.v7.widget.AppCompatImageView {
         this.setX(miniaturePosition.x);
         this.setY(miniaturePosition.y);
         this.bitmap = Bitmap.createScaledBitmap(bitmap , size.x, size.y, false);
+
+        setOnLongClickListener(this);
     }
 
-//    public void setX(float newX){
-//        Log.d("miniaturePos", "newX: " + newX);
-//        if(newX<0){
-//            return;
-//        }
-//        this.setX(newX - 50/4);
-//    }
-//    public void setY(float newY){
-//        Log.d("miniaturePos", "newY: " + newY);
-//        if(newY<0){
-//            return;
-//        }
-//        this.setY(newY - 80/4);
-//    }
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -52,5 +44,23 @@ public class Miniature extends android.support.v7.widget.AppCompatImageView {
 
         canvas.drawRect(rect, paint);
         canvas.drawBitmap(bitmap, this.getX(), this.getY(), new Paint());
+    }
+
+    @Override
+    public boolean onLongClick(View view) {
+
+        Log.d("debug miniature", "longclick");
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(super.getContext());
+        String[] options = {"podgląd zdjęcia", "usuń bieżące", "zapisz bieżące"};
+        alert.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        alert.show();
+        return false;
     }
 }
