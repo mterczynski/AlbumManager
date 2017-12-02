@@ -1,5 +1,6 @@
 package local.terczynski.albummanager.Activities;
 
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
@@ -49,6 +50,16 @@ public class PictureActivity extends AppCompatActivity {
     private Camera.Size[] supportedPictureSizes;
     private ArrayList<String> exposureCompensationOptions;
     private Point screenSize;
+
+    // header buttons:
+    private ImageView colorsButton;
+    private ImageView flashButton;
+    private ImageView sunButton;
+    private ImageView resizeButton;
+    // footer buttons:
+    private ImageView changeCameraButton;
+    private ImageView takePictureButton;
+    private ImageView savePictureButton;
 
     private List<Miniature> miniatures = new ArrayList<Miniature>();
     private OrientationEventListener orientationEventListener;
@@ -149,15 +160,7 @@ public class PictureActivity extends AppCompatActivity {
     };
 
     private void addClickListeners(){
-        // header buttons:
-        ImageView colorsButton = (ImageView)findViewById(R.id.colorsButton);
-        ImageView flashButton = (ImageView)findViewById(R.id.flashButton);
-        ImageView sunButton = (ImageView)findViewById(R.id.sunButton);
-        ImageView resizeButton = (ImageView)findViewById(R.id.resizeButton);
-        // footer buttons:
-        ImageView changeCameraButton = (ImageView)findViewById(R.id.changeCamera);
-        ImageView takePictureButton = (ImageView)findViewById(R.id.takePicture);
-        ImageView savePictureButton = (ImageView) findViewById(R.id.savePicture);
+
 
         // header buttons:
         colorsButton.setOnClickListener(new View.OnClickListener() {
@@ -320,9 +323,46 @@ public class PictureActivity extends AppCompatActivity {
         setContentView(R.layout.activity_picture);
 
         orientationEventListener = new OrientationEventListener(PictureActivity.this) {
+            int previousOrientation = 0; // {0, 90, 180, 270}
+
+            private void runAnim(int newOrientation, ImageView[] buttons){
+                if(newOrientation == previousOrientation){
+                    return;
+                }
+                if(previousOrientation == 270 && newOrientation == 0){
+                    newOrientation = 360;
+                } else if(previousOrientation == 0 && newOrientation == 270){
+                    previousOrientation = 360;
+                }
+
+                for(ImageView button : buttons){
+                    ObjectAnimator.ofFloat(button, View.ROTATION, -previousOrientation, -newOrientation)
+                        .setDuration(300)
+                        .start();
+                }
+                Log.d("rotateAnim", "from " + previousOrientation + "to " + newOrientation);
+                previousOrientation = newOrientation;
+            }
+
             @Override
-            public void onOrientationChanged(int i) {
-                // i zwraca kąt 0 - 360 stopni podczas obracania ekranem w osi Z
+            public void onOrientationChanged(int angle) {
+                ImageView[] buttons = {colorsButton, flashButton, sunButton, resizeButton, changeCameraButton, takePictureButton, savePictureButton};
+                int inaccuracy = 20; // must be (0-90)
+                if(angle > 360 - inaccuracy || angle < inaccuracy){
+                    runAnim(0, buttons);
+                    previousOrientation = 0;
+                } else if(angle < 90 + inaccuracy && angle > 90 - inaccuracy){
+                    runAnim(90, buttons);
+                    previousOrientation = 90;
+                } else if(angle < 180 + inaccuracy && angle > 180 - inaccuracy){
+                    runAnim(180, buttons);
+                    previousOrientation = 180;
+                } else if(angle < 270 + inaccuracy && angle > 270 - inaccuracy){
+                    runAnim(270, buttons);
+                    previousOrientation = 270;
+                }
+                //Log.d("orientation","angle: " + angle);
+                // angle zwraca kąt 0 - 360 stopni podczas obracania ekranem w osi Z
                 // tutaj wykonaj animacje butonów i miniatur zdjęć
             }
         };
@@ -352,10 +392,20 @@ public class PictureActivity extends AppCompatActivity {
         Log.d("camera","onResume");
         initCamera();
         initPreview();
-        addClickListeners();
         refreshCameraOptions();
         camera.startPreview();
 
+        // header buttons:
+        colorsButton = (ImageView)findViewById(R.id.colorsButton);
+        flashButton = (ImageView)findViewById(R.id.flashButton);
+        sunButton = (ImageView)findViewById(R.id.sunButton);
+        resizeButton = (ImageView)findViewById(R.id.resizeButton);
+        // footer buttons:
+        changeCameraButton = (ImageView)findViewById(R.id.changeCamera);
+        takePictureButton = (ImageView)findViewById(R.id.takePicture);
+        savePictureButton = (ImageView) findViewById(R.id.savePicture);
+
+        addClickListeners();
         // draw circle:
 
         screenSize = new Point();
