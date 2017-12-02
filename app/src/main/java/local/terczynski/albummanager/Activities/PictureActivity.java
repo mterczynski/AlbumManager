@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import local.terczynski.albummanager.Helpers.CameraPreview;
 import local.terczynski.albummanager.Helpers.Circle;
@@ -266,9 +267,7 @@ public class PictureActivity extends AppCompatActivity {
             File SYS_pictures = Environment.getExternalStoragePublicDirectory( Environment.DIRECTORY_PICTURES );
             final File mainDir = new File(SYS_pictures, mainFolderName);
 
-            SimpleDateFormat dFormat = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US);
-            final String newPhotoName = dFormat.format(new Date());
-
+            final SimpleDateFormat dFormat = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US);
             AlertDialog.Builder alert = new AlertDialog.Builder(PictureActivity.this);
             alert.setTitle("Wybierz album:");
 
@@ -281,13 +280,11 @@ public class PictureActivity extends AppCompatActivity {
             final String[] folderArray = foldersList.toArray(new String[0]);
             alert.setItems(folderArray, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    String pathToSave = mainDir.getAbsolutePath() + File.separator + folderArray[which] + File.separator + newPhotoName;
                     try {
-//                        FileOutputStream fs = new FileOutputStream(pathToSave);
-//                        fs.write(photoData);
-//                        fs.close();
-
                         for(byte[] data : photosData){
+                            String newPhotoName = UUID.randomUUID().toString();
+                            String pathToSave = mainDir.getAbsolutePath() + File.separator + folderArray[which] + File.separator + newPhotoName;
+
                             Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
                             Matrix matrix = new Matrix();
                             matrix.postRotate(-90);
