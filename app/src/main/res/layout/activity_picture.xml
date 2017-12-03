@@ -25,7 +25,7 @@
         <ImageView
             android:id="@+id/changeCamera"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="match_parent"
             android:layout_gravity="right|bottom"
             android:layout_weight="1"
             app:srcCompat="@drawable/rotate_camera_icon" />
@@ -33,17 +33,23 @@
         <ImageView
             android:id="@+id/takePicture"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="match_parent"
             android:layout_gravity="left|bottom"
             android:layout_weight="1"
             app:srcCompat="@drawable/take_picture_icon" />
 
-        <ImageView
-            android:id="@+id/savePicture"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
+        <!--<ImageView-->
+            <!--android:id="@+id/savePicture"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--app:srcCompat="@drawable/accept_icon" />-->
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
             android:layout_weight="1"
-            app:srcCompat="@drawable/accept_icon" />
+            android:layout_height="match_parent" />
     </LinearLayout>
 
     <LinearLayout

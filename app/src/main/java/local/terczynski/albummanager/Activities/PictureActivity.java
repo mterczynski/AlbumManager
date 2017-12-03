@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.Point;
-import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,15 +22,9 @@ import android.view.animation.RotateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.UUID;
 
 import local.terczynski.albummanager.Helpers.CameraPreview;
 import local.terczynski.albummanager.Helpers.Circle;
@@ -64,7 +57,6 @@ public class PictureActivity extends AppCompatActivity {
     // footer buttons:
     private ImageView changeCameraButton;
     private ImageView takePictureButton;
-    private ImageView savePictureButton;
 
     private double circleDiameter = 125;
 
@@ -287,52 +279,52 @@ public class PictureActivity extends AppCompatActivity {
                 camera.takePicture(null, null, camPictureCallback);
             }
         });
-        savePictureButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            String mainFolderName = getString(R.string.mainFolderName);
-            File SYS_pictures = Environment.getExternalStoragePublicDirectory( Environment.DIRECTORY_PICTURES );
-            final File mainDir = new File(SYS_pictures, mainFolderName);
-
-            final SimpleDateFormat dFormat = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US);
-            AlertDialog.Builder alert = new AlertDialog.Builder(PictureActivity.this);
-            alert.setTitle("Wybierz album:");
-
-            ArrayList<String> foldersList = new ArrayList<String>();
-            for(File file: mainDir.listFiles()) {
-                if(file.isDirectory()) {
-                    foldersList.add(file.getName());
-                }
-            }
-            final String[] folderArray = foldersList.toArray(new String[0]);
-            alert.setItems(folderArray, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    try {
-                        // save all pictures
-
-                        for(byte[] data : photosData){
-                            String newPhotoName = UUID.randomUUID().toString();
-                            String pathToSave = mainDir.getAbsolutePath() + File.separator + folderArray[which] + File.separator + newPhotoName;
-
-                            new PictureSaver(PictureActivity.this).savePicture(data, pathToSave);
-//                            Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-//                            Matrix matrix = new Matrix();
-//                            matrix.postRotate(-90);
-//                            Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+//        savePictureButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//            String mainFolderName = getString(R.string.mainFolderName);
+//            File SYS_pictures = Environment.getExternalStoragePublicDirectory( Environment.DIRECTORY_PICTURES );
+//            final File mainDir = new File(SYS_pictures, mainFolderName);
 //
-//                            FileOutputStream fs = new FileOutputStream(pathToSave);
-//                            rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fs);
-//                            fs.close();
-                        }
-
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                }
-            });
-            alert.show();
-            }
-        });
+//            final SimpleDateFormat dFormat = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US);
+//            AlertDialog.Builder alert = new AlertDialog.Builder(PictureActivity.this);
+//            alert.setTitle("Wybierz album:");
+//
+//            ArrayList<String> foldersList = new ArrayList<String>();
+//            for(File file: mainDir.listFiles()) {
+//                if(file.isDirectory()) {
+//                    foldersList.add(file.getName());
+//                }
+//            }
+//            final String[] folderArray = foldersList.toArray(new String[0]);
+//            alert.setItems(folderArray, new DialogInterface.OnClickListener() {
+//                public void onClick(DialogInterface dialog, int which) {
+//                    try {
+//                        // save all pictures
+//
+//                        for(byte[] data : photosData){
+//                            String newPhotoName = UUID.randomUUID().toString();
+//                            String pathToSave = mainDir.getAbsolutePath() + File.separator + folderArray[which] + File.separator + newPhotoName;
+//
+//                            new PictureSaver(PictureActivity.this).savePicture(data, pathToSave);
+////                            Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+////                            Matrix matrix = new Matrix();
+////                            matrix.postRotate(-90);
+////                            Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+////
+////                            FileOutputStream fs = new FileOutputStream(pathToSave);
+////                            rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fs);
+////                            fs.close();
+//                        }
+//
+//                    } catch (Exception ex) {
+//                        ex.printStackTrace();
+//                    }
+//                }
+//            });
+//            alert.show();
+//            }
+//        });
     }
 
     private int getCameraId(){
@@ -394,7 +386,7 @@ public class PictureActivity extends AppCompatActivity {
 
             @Override
             public void onOrientationChanged(int angle) {
-                ImageView[] buttons = {colorsButton, flashButton, sunButton, resizeButton, changeCameraButton, takePictureButton, savePictureButton};
+                ImageView[] buttons = {colorsButton, flashButton, sunButton, resizeButton, changeCameraButton, takePictureButton};
                 int inaccuracy = 20; // must be (0-90)
                 if(angle > 360 - inaccuracy || angle < inaccuracy){
                     runAnim(0, buttons);
@@ -451,7 +443,6 @@ public class PictureActivity extends AppCompatActivity {
         // footer buttons:
         changeCameraButton = (ImageView)findViewById(R.id.changeCamera);
         takePictureButton = (ImageView)findViewById(R.id.takePicture);
-        savePictureButton = (ImageView) findViewById(R.id.savePicture);
 
         addClickListeners();
         // draw circle:

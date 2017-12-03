@@ -2,4 +2,11 @@
     <string name="app_name">AlbumManager</string>
     <string name="mainFolderName">AlbumManager_mter</string>
     <string name="dbName">AlbumManager_mter.db</string>
+    <string-array name="spinner_items">
+        <item>[opcje]</item>
+        <item>zapisz ostatnie</item>
+        <item>zapisz wszystkie</item>
+        <item>usuń wszystkie</item>
+    </string-array>
 </resources>
+
