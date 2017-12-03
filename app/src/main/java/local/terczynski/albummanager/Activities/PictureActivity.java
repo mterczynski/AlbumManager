@@ -19,8 +19,11 @@ import android.view.Surface;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,6 +60,7 @@ public class PictureActivity extends AppCompatActivity {
     // footer buttons:
     private ImageView changeCameraButton;
     private ImageView takePictureButton;
+    private Spinner spinner;
 
     private double circleDiameter = 125;
 
@@ -443,6 +447,35 @@ public class PictureActivity extends AppCompatActivity {
         // footer buttons:
         changeCameraButton = (ImageView)findViewById(R.id.changeCamera);
         takePictureButton = (ImageView)findViewById(R.id.takePicture);
+        spinner = (Spinner)findViewById(R.id.pictureActivity_spinner);
+
+        ArrayAdapter<String> spinnerItems = new ArrayAdapter<String>(PictureActivity.this,
+                R.layout.spinner_item,
+                R.id.spinnerItem_textView,
+                getResources().getStringArray(R.array.spinner_items));
+
+        spinner.setAdapter(spinnerItems);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if(i == 0){ // [options]
+
+                } else if(i == 1){ // save last picture
+
+                } else if(i == 2){ // save all pictures
+
+                } else if(i == 3){ // delete all pictures
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
 
         addClickListeners();
         // draw circle:
