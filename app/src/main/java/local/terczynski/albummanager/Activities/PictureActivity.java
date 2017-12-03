@@ -184,7 +184,6 @@ public class PictureActivity extends AppCompatActivity {
 
     private void addClickListeners(){
 
-
         // header buttons:
         colorsButton.setOnClickListener(new View.OnClickListener() {
             @Override
