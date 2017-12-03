@@ -33,6 +33,14 @@ public class AlbumDetailsActivity extends AppCompatActivity {
         return myBitmap;
     }
 
+    private void deleteRecursive(File fileOrDirectory) {
+        if (fileOrDirectory.isDirectory())
+            for (File child : fileOrDirectory.listFiles())
+                deleteRecursive(child);
+
+        fileOrDirectory.delete();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("albumDetails","onCreate");
@@ -48,13 +56,16 @@ public class AlbumDetailsActivity extends AppCompatActivity {
         deleteFolderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Log.d("currentDir","Current directory: " + currentDir.getName());
                 AlertDialog.Builder alert = new AlertDialog.Builder(AlbumDetailsActivity.this);
                 alert.setTitle("Usuwanie");
                 alert.setMessage("Czy usunąć folder \"" + currentDir.getName() + "\"?");
                 alert.setPositiveButton("Tak", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        currentDir.delete();
+                        // remove currentDir with all its children:
+                        deleteRecursive(currentDir);
+
+
                         Intent intent = new Intent(AlbumDetailsActivity.this, AlbumsActivity.class);
                         startActivity(intent);
                     }

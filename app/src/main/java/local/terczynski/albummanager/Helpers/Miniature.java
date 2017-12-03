@@ -15,16 +15,8 @@ import android.view.View;
 
 public class Miniature extends android.support.v7.widget.AppCompatImageView {
 
-    public static Point size = new Point(120,120);
-
     private Bitmap bitmap;
-
-    public Miniature(Context context, Bitmap bitmap, Point miniaturePosition) {
-        super(context);
-        this.setX(miniaturePosition.x);
-        this.setY(miniaturePosition.y);
-        this.bitmap = Bitmap.createScaledBitmap(bitmap , size.x, size.y, false);
-    }
+    public static Point size = new Point(120,120);
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -43,4 +35,12 @@ public class Miniature extends android.support.v7.widget.AppCompatImageView {
         canvas.drawRect(rect, paint);
         canvas.drawBitmap(bitmap, this.getX(), this.getY(), new Paint());
     }
+
+    public Miniature(Context context, Bitmap bitmap, Point miniaturePosition) {
+        super(context);
+        this.setX(miniaturePosition.x);
+        this.setY(miniaturePosition.y);
+        this.bitmap = Bitmap.createScaledBitmap(bitmap , size.x, size.y, false);
+    }
+
 }

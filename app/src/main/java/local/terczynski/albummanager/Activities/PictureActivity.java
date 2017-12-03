@@ -128,7 +128,7 @@ public class PictureActivity extends AppCompatActivity {
     }
     private Camera.PictureCallback camPictureCallback = new Camera.PictureCallback() {
         @Override
-        public void onPictureTaken(byte[] data, Camera camera) {
+        public void onPictureTaken(final byte[] data, Camera camera) {
             // refresh camera (zapobiega to przycięciu się kamery po zrobieniu zdjęcia)
             camera.startPreview();
 // miniatures:
@@ -138,7 +138,7 @@ public class PictureActivity extends AppCompatActivity {
             matrix.postRotate(-90);
             Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
             Bitmap rotatedSmallBitmap = Bitmap.createBitmap(smallBitmap, 0, 0, smallBitmap.getWidth(), smallBitmap.getHeight(), matrix, true);
-            Miniature newMiniature = new Miniature(PictureActivity.this, rotatedSmallBitmap, new Point(100,100));
+            final Miniature newMiniature = new Miniature(PictureActivity.this, rotatedSmallBitmap, new Point(100,100));
 
             newMiniature.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
@@ -155,7 +155,7 @@ public class PictureActivity extends AppCompatActivity {
 
                             } else if(i == 2){ // save this picture
 //                                PictureSaver.savePicture("", );
-
+                                new PictureSaver(PictureActivity.this).savePictureWithDialog(data);
                             }
                         }
                     });

@@ -22,12 +22,14 @@ import local.terczynski.albummanager.R;
 
 public class PictureSaver {
     private Context context;
-    private String mainFolderName = context.getResources().getString(R.string.mainFolderName);
+    private String mainFolderName;
     private File SYS_pictures = Environment.getExternalStoragePublicDirectory( Environment.DIRECTORY_PICTURES );
-    private final File mainDir = new File(SYS_pictures, mainFolderName);
+    private final File mainDir;
 
     public PictureSaver(Context context){
         this.context = context;
+        mainFolderName = context.getResources().getString(R.string.mainFolderName);
+        mainDir = new File(SYS_pictures, mainFolderName);
     }
     public void savePicture(byte[] imageData) throws FileNotFoundException, IOException {
         Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
