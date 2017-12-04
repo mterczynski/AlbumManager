@@ -477,7 +477,7 @@ public class PictureActivity extends AppCompatActivity {
                 if(i == 0){ // [options]
 
                 } else if(i == 1){ // save last picture
-
+                    new PictureSaver(PictureActivity.this).savePictureWithDialog(photosData.get(photosData.size()-1));
                 } else if(i == 2){ // save all pictures
 
                 } else if(i == 3){ // delete all pictures
