@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.OrientationEventListener;
 import android.view.Surface;
 import android.view.View;
@@ -87,6 +88,13 @@ public class PictureActivity extends AppCompatActivity {
         }
     }
 
+    private void removeMiniature(int id){
+        camera_frameLayout.removeView(miniatures.get(id));
+        miniatures.remove(id);
+        // TODO: redraw miniatures
+        reDrawMiniatures();
+    }
+
     private void removeAllMiniatures(){
         for(Miniature miniature : miniatures){
             camera_frameLayout.removeView(miniature);
@@ -106,6 +114,69 @@ public class PictureActivity extends AppCompatActivity {
         exposureCompensationOptions = new ArrayList<String>();
         for(int i = minExposure; i <= maxExposure; i++ ) {
             exposureCompensationOptions.add(i + "");
+        }
+    }
+
+    private void reDrawMiniatures() {
+        for(int i=0; i<miniatures.size(); i++){ // display miniatures
+            double angle = 2 * Math.PI/(miniatures.size()) * i;
+
+            int diffX = (int)(Math.cos(angle) * circleDiameter) - Miniature.size.x/4;
+            int diffY = (int)(circleDiameter * Math.sin(angle)) - Miniature.size.y/4;
+
+            Miniature miniature = miniatures.get(i);
+            miniature.setId(i);
+            miniature.setX(screenSize.x/4 + diffX);
+            miniature.setY(screenSize.y/4 + diffY);
+
+            Log.d("miniaturePosition", miniature.getX() + "," + miniature.getY());
+
+            camera_frameLayout.removeView(miniature);
+            camera_frameLayout.addView(miniature);
+
+//            miniature.removeCallbacks()
+            miniature.setOnLongClickListener(null);
+            miniature.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(final View view) {
+                    final Miniature clickedMiniature = (Miniature) view;
+
+                    android.app.AlertDialog.Builder alert = new android.app.AlertDialog.Builder(PictureActivity.this);
+                    String[] options = {"podgląd zdjęcia", "usuń bieżące", "zapisz bieżące"};
+                    alert.setItems(options, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            if(i == 0){ // preview this picture
+                                Bitmap bitmap = BitmapFactory.decodeByteArray(clickedMiniature.getData(), 0, clickedMiniature.getData().length);
+                                Matrix matrix = new Matrix();
+                                matrix.postRotate(-90);
+                                Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+                                //rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100,);
+                                final ImageView imageView;
+                                imageView= (ImageView) findViewById(R.id.bitmapPreview);
+                                imageView.setImageBitmap(rotatedBitmap);
+                                int x = View.VISIBLE;
+                                imageView.setVisibility(x);
+                                imageView.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        int x = View.GONE;
+                                        imageView.setVisibility(x);
+                                    }
+                                });
+                            } else if(i == 1){ // delete this picture
+                                removeMiniature(clickedMiniature.getId());
+                                reDrawMiniatures();
+                            } else if(i == 2){ // save this picture
+//                                PictureSaver.savePicture("", );
+                                new PictureSaver(PictureActivity.this).savePictureWithDialog(clickedMiniature.getData());
+                            }
+                        }
+                    });
+                    alert.show();
+                    return false;
+                }
+            });
         }
     }
 
@@ -142,11 +213,48 @@ public class PictureActivity extends AppCompatActivity {
             matrix.postRotate(-90);
             Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
             Bitmap rotatedSmallBitmap = Bitmap.createBitmap(smallBitmap, 0, 0, smallBitmap.getWidth(), smallBitmap.getHeight(), matrix, true);
-            final Miniature newMiniature = new Miniature(PictureActivity.this, rotatedSmallBitmap, new Point(100,100));
+            final Miniature newMiniature = new Miniature(PictureActivity.this, rotatedSmallBitmap, new Point(100,100), data);
 
+//            newMiniature.setOnTouchListener(new View.OnTouchListener() {
+//                private float startX;
+//                private float radius = Miniature.size.x/2;
+//
+//                @Override
+//                public boolean onTouch(View view, MotionEvent motionEvent) {
+//                    float x = motionEvent.getRawX();
+//
+//                    switch(motionEvent.getAction()) {
+//                        case MotionEvent.ACTION_DOWN:
+//                            startX = view.getX();
+//                            break;
+//                        case MotionEvent.ACTION_MOVE:
+//                            view.setX(x);
+//
+//                            // what distance should I swipe to delete miniature
+//                            double test = radius * 1.5;
+//                            if (startX > screenSize.x / 2) {
+//                                test = radius;
+//                            }
+//
+//                            if (Math.abs(startX - x) > test) {
+//                                Miniature temp = (Miniature) view;
+////                                removeMiniature(temp.getMiniatureId());
+//                                // TODO: remove miniature
+//                            }
+//                            break;
+//                        case MotionEvent.ACTION_UP:
+//                            view.setX(startX);
+//                            break;
+//                    }
+//                    return false;
+//                }
+//            });
+
+            newMiniature.setOnLongClickListener(null);
             newMiniature.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
-                public boolean onLongClick(View view) {
+                public boolean onLongClick(final View view) {
+                    final Miniature clickedMiniature = (Miniature) view;
 
                     android.app.AlertDialog.Builder alert = new android.app.AlertDialog.Builder(PictureActivity.this);
                     String[] options = {"podgląd zdjęcia", "usuń bieżące", "zapisz bieżące"};
@@ -154,7 +262,7 @@ public class PictureActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             if(i == 0){ // preview this picture
-                                Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                                Bitmap bitmap = BitmapFactory.decodeByteArray(clickedMiniature.getData(), 0, clickedMiniature.getData().length);
                                 Matrix matrix = new Matrix();
                                 matrix.postRotate(-90);
                                 Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
@@ -172,10 +280,11 @@ public class PictureActivity extends AppCompatActivity {
                                     }
                                 });
                             } else if(i == 1){ // delete this picture
-
+                                removeMiniature(clickedMiniature.getId());
+                                reDrawMiniatures();
                             } else if(i == 2){ // save this picture
 //                                PictureSaver.savePicture("", );
-                                new PictureSaver(PictureActivity.this).savePictureWithDialog(data);
+                                new PictureSaver(PictureActivity.this).savePictureWithDialog(clickedMiniature.getData());
                             }
                         }
                     });
@@ -188,21 +297,22 @@ public class PictureActivity extends AppCompatActivity {
 
             photosData.add(data);
 
-            for(int i=0; i<miniatures.size(); i++){ // display miniatures
-                double angle = 2 * Math.PI/(miniatures.size()) * i;
-
-                int diffX = (int)(Math.cos(angle) * circleDiameter) - Miniature.size.x/4;
-                int diffY = (int)(circleDiameter * Math.sin(angle)) - Miniature.size.y/4;
-
-                Miniature miniature = miniatures.get(i);
-                miniature.setX(screenSize.x/4 + diffX);
-                miniature.setY(screenSize.y/4 + diffY);
-
-                Log.d("miniaturePosition", miniature.getX() + "," + miniature.getY());
-
-                camera_frameLayout.removeView(miniature);
-                camera_frameLayout.addView(miniature);
-            }
+//            for(int i=0; i<miniatures.size(); i++){ // display miniatures
+//                double angle = 2 * Math.PI/(miniatures.size()) * i;
+//
+//                int diffX = (int)(Math.cos(angle) * circleDiameter) - Miniature.size.x/4;
+//                int diffY = (int)(circleDiameter * Math.sin(angle)) - Miniature.size.y/4;
+//
+//                Miniature miniature = miniatures.get(i);
+//                miniature.setX(screenSize.x/4 + diffX);
+//                miniature.setY(screenSize.y/4 + diffY);
+//
+//                Log.d("miniaturePosition", miniature.getX() + "," + miniature.getY());
+//
+//                camera_frameLayout.removeView(miniature);
+//                camera_frameLayout.addView(miniature);
+//            }
+            reDrawMiniatures();
         }
     };
 
