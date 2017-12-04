@@ -87,6 +87,14 @@ public class PictureActivity extends AppCompatActivity {
         }
     }
 
+    private void removeAllMiniatures(){
+        for(Miniature miniature : miniatures){
+            camera_frameLayout.removeView(miniature);
+        }
+        photosData = new ArrayList<byte[]>();
+        miniatures = new ArrayList<Miniature>();
+    }
+
     private void refreshCameraOptions(){
         cameraOptions = camera.getParameters();
         whiteBalanceOptions = cameraOptions.getSupportedWhiteBalance().toArray(new String[0]);
@@ -478,14 +486,14 @@ public class PictureActivity extends AppCompatActivity {
 
                 } else if(i == 1){ // save last picture
                     new PictureSaver(PictureActivity.this).savePictureWithDialog(photosData.get(photosData.size()-1));
+                    camera_frameLayout.removeView(miniatures.get(miniatures.size()-1));
+                    miniatures.remove(miniatures.size()-1);
+                    photosData.remove(photosData.size()-1);
                 } else if(i == 2){ // save all pictures
                     new PictureSaver(PictureActivity.this).savePicturesWithDialog(photosData);
+                    removeAllMiniatures();
                 } else if(i == 3){ // delete all pictures
-                    for(Miniature miniature : miniatures){
-                        camera_frameLayout.removeView(miniature);
-                    }
-                    photosData = new ArrayList<byte[]>();
-                    miniatures = new ArrayList<Miniature>();
+                    removeAllMiniatures();
                 }
                 spinner.setSelection(0);
             }
