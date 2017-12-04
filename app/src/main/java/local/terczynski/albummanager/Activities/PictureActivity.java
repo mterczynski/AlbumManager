@@ -481,8 +481,13 @@ public class PictureActivity extends AppCompatActivity {
                 } else if(i == 2){ // save all pictures
 
                 } else if(i == 3){ // delete all pictures
-
+                    for(Miniature miniature : miniatures){
+                        camera_frameLayout.removeView(miniature);
+                    }
+                    photosData = new ArrayList<byte[]>();
+                    miniatures = new ArrayList<Miniature>();
                 }
+                spinner.setSelection(0);
             }
 
             @Override
