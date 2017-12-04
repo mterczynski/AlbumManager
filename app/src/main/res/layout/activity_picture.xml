@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Activites.zdjecie">
+    android:layout_height="match_parent">
 
     <FrameLayout
         android:id="@+id/camera_frameLayout"
@@ -14,6 +13,14 @@
 
 
     </FrameLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/bitmapPreview"
+        android:visibility="gone"
+        android:layout_margin="30dp"
+        android:background="@android:color/transparent" />
 
     <LinearLayout
         android:layout_width="match_parent"

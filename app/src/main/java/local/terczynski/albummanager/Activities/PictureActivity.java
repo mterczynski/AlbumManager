@@ -146,7 +146,23 @@ public class PictureActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             if(i == 0){ // preview this picture
-
+                                Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                                Matrix matrix = new Matrix();
+                                matrix.postRotate(-90);
+                                Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+                                //rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100,);
+                                final ImageView imageView;
+                                imageView= (ImageView) findViewById(R.id.bitmapPreview);
+                                imageView.setImageBitmap(rotatedBitmap);
+                                int x = View.VISIBLE;
+                                imageView.setVisibility(x);
+                                imageView.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        int x = View.GONE;
+                                        imageView.setVisibility(x);
+                                    }
+                                });
                             } else if(i == 1){ // delete this picture
 
                             } else if(i == 2){ // save this picture
