@@ -1,39 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:id="@+id/picture_drawer_layout">
 
-    >
-    <!--tools:context=".Activites.PictureDetailsActivity"-->
-
-    <ImageView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="20"
-        android:id="@+id/obrazekDetails" />
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="80"
-        >
-
+        android:layout_height="match_parent">
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="50"
-            android:src="@drawable/delete"
-            android:id="@+id/deleteImage" />
+            android:layout_weight="80"
+            android:id="@+id/obrazekDetails" />
 
-        <ImageView
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="50"
-            android:src="@drawable/pencil"
-            android:id="@+id/editImage" />
-    </LinearLayout>
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="80"
+            >
 
-</LinearLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="50"
+                android:src="@drawable/delete"
+                android:id="@+id/deleteImage" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="50"
+                android:src="@drawable/pencil"
+                android:id="@+id/editImage" />
+        </LinearLayout>
+        <ListView
+
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="#dddddd"
+
+        />
+    </RelativeLayout>
+</android.support.v4.widget.DrawerLayout>
