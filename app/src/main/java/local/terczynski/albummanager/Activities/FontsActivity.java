@@ -78,7 +78,7 @@ public class FontsActivity extends AppCompatActivity {
 
         // get assetManager:
         assetManager = getAssets();
-        
+
         try{
             listOfFonts = assetManager.list("fonts");
             Toast.makeText(FontsActivity.this, "fonts loaded", Toast.LENGTH_SHORT).show();

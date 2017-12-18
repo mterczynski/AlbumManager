@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 import java.io.File;
@@ -21,6 +22,7 @@ import java.util.List;
 
 import local.terczynski.albummanager.Adapters.DrawerArrayAdapter;
 import local.terczynski.albummanager.Adapters.MyArrayAdapter;
+import local.terczynski.albummanager.Helpers.NetworkService;
 import local.terczynski.albummanager.R;
 
 public class PictureDetailsActivity extends AppCompatActivity {
@@ -32,6 +34,20 @@ public class PictureDetailsActivity extends AppCompatActivity {
         options.inSampleSize = 4; // zmniejszenie jakości bitmapy 4x
         myBitmap = BitmapFactory.decodeFile(filePath, options);
         return myBitmap;
+    }
+
+    private void showNetworkStatus() {
+        NetworkService networkService = new NetworkService(this);
+
+        String toastMessage;
+
+        if(networkService.isConnected()){
+            toastMessage = "Połączono z internetem";
+        } else {
+            toastMessage = "Nie udało się połączyć z internetem";
+        }
+
+        Toast.makeText(this, toastMessage, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -47,6 +63,8 @@ public class PictureDetailsActivity extends AppCompatActivity {
         } catch (Exception ex){
             Log.d("bundleFix", "no currentDir provided");
         }
+
+        showNetworkStatus();
 
         // drawer:
         List tempObjects = new ArrayList<String>();

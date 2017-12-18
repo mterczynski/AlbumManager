@@ -21,10 +21,6 @@ import local.terczynski.albummanager.Activities.FontsActivity;
 import local.terczynski.albummanager.Helpers.Note;
 import local.terczynski.albummanager.R;
 
-/**
- * Created by HP on 18.12.2017.
- */
-
 public class DrawerArrayAdapter extends ArrayAdapter {
     private List<String> objects;
     private Context context;
@@ -38,20 +34,15 @@ public class DrawerArrayAdapter extends ArrayAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    @NonNull
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
-        // inflater - klasa konwertująca xml na kod javy
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.drawer_item_row_layout, null);
 
         LinearLayout drawer_item_linear = (LinearLayout) convertView.findViewById(R.id.drawer_item_linear);
-        ImageView textView_imageView = (ImageView) convertView.findViewById(R.id.drawer_item_image);
-        TextView textView_textView = (TextView) convertView.findViewById(R.id.drawer_item_text);
-
-        if(position != 0){
-            textView_textView.setText("item " + (position+1));
-            textView_imageView.setImageResource(R.drawable.folder);
-        }
+        ImageView drawer_imageView = (ImageView) convertView.findViewById(R.id.drawer_item_image);
+        TextView drawer_textView = (TextView) convertView.findViewById(R.id.drawer_item_text);
 
         // fonts:
         if(position == 0){
@@ -60,10 +51,17 @@ public class DrawerArrayAdapter extends ArrayAdapter {
                 public void onClick(View view) {
                     Log.d("click", "hello drawer");
                     Intent intent = new Intent(context, FontsActivity.class);
-//                    context.startActivity(intent);
                     ((Activity) context).startActivityForResult(intent, 1);
                 }
             });
+        } else if (position == 1){ // upload to server
+            drawer_imageView.setImageResource(R.drawable.cloud_upload);
+            drawer_textView.setText("Upload");
+        }
+
+        if(position > 1){
+            drawer_textView.setText("item " + (position+1));
+            drawer_imageView.setImageResource(R.drawable.folder);
         }
 
         return convertView;
