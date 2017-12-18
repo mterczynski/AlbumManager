@@ -3,16 +3,22 @@ package local.terczynski.albummanager.Activities;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
+import local.terczynski.albummanager.Adapters.DrawerArrayAdapter;
+import local.terczynski.albummanager.Adapters.MyArrayAdapter;
 import local.terczynski.albummanager.R;
 
 public class PictureDetailsActivity extends AppCompatActivity {
@@ -39,6 +45,22 @@ public class PictureDetailsActivity extends AppCompatActivity {
         } catch (Exception ex){
             Log.d("bundleFix", "no currentDir provided");
         }
+
+        // drawer:
+        List tempObjects = new ArrayList<String>();
+        tempObjects.add("Fonts");
+        tempObjects.add("Item 2");
+        tempObjects.add("Item 3");
+        tempObjects.add("Item 4");
+        tempObjects.add("Item 5");
+        DrawerArrayAdapter adapter = new DrawerArrayAdapter(
+                PictureDetailsActivity.this,
+                R.layout.drawer_item_row_layout,
+                tempObjects
+        );
+        ListView drawerItems = findViewById(R.id.picture_drawer_items);
+        drawerItems.setAdapter(adapter);
+        // end of drawer
 
 
         ImageView deleteImageButton = (ImageView)findViewById(R.id.deleteImage);
@@ -74,6 +96,8 @@ public class PictureDetailsActivity extends AppCompatActivity {
                 alert.show();
             }
         });
-
     }
+
+    // todo: set drawer items
+
 }

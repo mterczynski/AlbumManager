@@ -36,13 +36,15 @@
                 android:src="@drawable/pencil"
                 android:id="@+id/editImage" />
         </LinearLayout>
-        <ListView
-
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:background="#dddddd"
-
-        />
     </RelativeLayout>
+
+    <ListView
+
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#dddddd"
+        android:id="@+id/picture_drawer_items"
+
+    />
 </android.support.v4.widget.DrawerLayout>
