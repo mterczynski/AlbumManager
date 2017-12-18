@@ -1,6 +1,8 @@
 package local.terczynski.albummanager.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import local.terczynski.albummanager.Activities.FontsActivity;
 import local.terczynski.albummanager.Helpers.Note;
 import local.terczynski.albummanager.R;
 
@@ -56,6 +59,9 @@ public class DrawerArrayAdapter extends ArrayAdapter {
                 @Override
                 public void onClick(View view) {
                     Log.d("click", "hello drawer");
+                    Intent intent = new Intent(context, FontsActivity.class);
+//                    context.startActivity(intent);
+                    ((Activity) context).startActivityForResult(intent, 1);
                 }
             });
         }

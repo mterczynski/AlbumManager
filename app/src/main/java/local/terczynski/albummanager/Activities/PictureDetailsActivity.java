@@ -1,6 +1,8 @@
 package local.terczynski.albummanager.Activities;
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.widget.DrawerLayout;
@@ -62,7 +64,6 @@ public class PictureDetailsActivity extends AppCompatActivity {
         drawerItems.setAdapter(adapter);
         // end of drawer
 
-
         ImageView deleteImageButton = (ImageView)findViewById(R.id.deleteImage);
         ImageView obrazekDetails = (ImageView)findViewById(R.id.obrazekDetails);
 
@@ -80,7 +81,6 @@ public class PictureDetailsActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                     File imageFile = new File(imageFullPath);
                     imageFile.delete();
-//                        Intent backToAlbumDetails = new Intent(PictureDetailsActivity.this, AlbumDetailsActivity.class);
 //                        backToAlbumDetails.putExtra("currentDir", (File)getIntent().getExtras().get("currentDir"));
 //
 //                        startActivity(backToAlbumDetails);
@@ -98,6 +98,16 @@ public class PictureDetailsActivity extends AppCompatActivity {
         });
     }
 
-    // todo: set drawer items
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(requestCode == 1){
+            if(resultCode == Activity.RESULT_OK){
+                String user_font = data.getStringExtra("user_font");
+                String user_text =  data.getStringExtra("user_text");
 
+                Log.d("result", "user_font: " + user_font);
+                Log.d("result", "user_text: " + user_text);
+            }
+        }
+    }
 }
