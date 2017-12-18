@@ -31,8 +31,9 @@
         <activity android:name=".Activities.PictureDetailsActivity" />
         <activity
             android:name=".Activities.PictureActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".Activities.LettersActivity"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".Activities.LettersActivity" />
+        <activity android:name=".Activities.FontsActivity"></activity>
     </application>
 
 </manifest>
